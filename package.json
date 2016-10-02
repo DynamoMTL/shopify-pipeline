@@ -1,0 +1,33 @@
+{
+  "name": "greenhousejuice-shopify",
+  "version": "0.1.0",
+  "devDependencies": {
+    "babel-core": "latest",
+    "babel-loader": "latest",
+    "babel-preset-es2015": "latest",
+    "browser-sync": "latest",
+    "eslint": "latest",
+    "gulp": "latest",
+    "gulp-babel": "latest",
+    "gulp-changed": "^1.3.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-cli": "latest",
+    "gulp-debug": "^2.1.2",
+    "gulp-eslint": "latest",
+    "gulp-flatten": "^0.3.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-shell": "^0.5.2",
+    "gulp-svgstore": "latest",
+    "gulp-uglify": "latest",
+    "lazypipe": "^1.0.1",
+    "npm": "latest",
+    "run-sequence": "^1.2.2",
+    "webpack-stream": "latest",
+    "yamljs": "^0.2.8"
+  },
+  "engine": "node >= 6.4.0",
+  "dependencies": {
+    "lodash": "^4.16.1"
+  }
+}
