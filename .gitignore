@@ -39,3 +39,4 @@ jspm_packages
 # Specific
 output
 config.yml
+dist
