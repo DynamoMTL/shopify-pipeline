@@ -1,6 +1,7 @@
 const shell = require('shelljs');
 const webpack = require('webpack');
 const config = require('../config/webpack.prod.conf');
+const shopify = require('../scripts/deploy');
 
 shell.env.NODE_ENV = 'production';
 
@@ -15,4 +16,5 @@ webpack(config, (err, stats) => {
   })}`);
 
   // and now upload ?
+  shopify.overwrite();
 });

@@ -14,6 +14,7 @@
   },
   "engine": ">= 6.4.0",
   "dependencies": {
+    "@shopify/themekit": "^0.6.11",
     "babel-cli": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
