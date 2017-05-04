@@ -15,6 +15,5 @@ webpack(config, (err, stats) => {
     chunkModules: false,
   })}`);
 
-  // and now upload ?
   shopify.overwrite();
 });

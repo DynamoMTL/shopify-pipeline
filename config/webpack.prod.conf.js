@@ -6,6 +6,7 @@ const config = require('./webpack.base.conf');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AssetTagToShopifyLiquid = require('../lib/AssetTagToShopifyLiquid')
 
 module.exports = merge(config, {
   devtool: false,
@@ -57,6 +58,8 @@ module.exports = merge(config, {
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency',
     }),
+
+    new AssetTagToShopifyLiquid(),
 
     // split node_modules/vendors into their own file
     new webpack.optimize.CommonsChunkPlugin({
