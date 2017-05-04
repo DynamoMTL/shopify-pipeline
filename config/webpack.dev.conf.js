@@ -42,9 +42,8 @@ module.exports = merge(config, {
     new webpack.NoEmitOnErrorsPlugin(),
 
     new HtmlWebpackPlugin({
-      excludeChunks: ['liquid'],
+      excludeChunks: ['static'],
       filename: '../layout/theme.liquid',
-      // filename: 'index.html',
       template: './layout/theme.liquid',
       inject: true,
     }),

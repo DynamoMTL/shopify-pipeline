@@ -42,7 +42,7 @@ module.exports = merge(config, {
 
     // generate dist/layout/theme.liquid with correct paths to assets
     new HtmlWebpackPlugin({
-      excludeChunks: ['liquid'],
+      excludeChunks: ['static'],
       filename: '../layout/theme.liquid',
       // filename: '../index.html',
       template: './layout/theme.liquid',

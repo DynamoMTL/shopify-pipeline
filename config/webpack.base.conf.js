@@ -1,17 +1,13 @@
+const config = require('../config');
 const path = require('path');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
-
-const regex = {
-  images: /\.(png|svg|jpg|gif)$/,
-  markup: /\.(liquid)$/,
-};
 
 module.exports = {
   context: path.join(__dirname, '../src'),
 
   entry: {
     scripts: './assets/js/index.js',
-    liquid: '../scripts/liquid-files-glob.js',
+    static: '../lib/static-files-glob.js',
   },
 
   output: {
@@ -54,12 +50,12 @@ module.exports = {
         },
       },
       {
-        test: regex.images,
+        test: config.regex.images,
         exclude: /node_modules/,
         loader: ['file-loader', 'img-loader'],
       },
       {
-        test: regex.markup,
+        test: config.regex.static,
         exclude: /(node_modules|layout\/theme\.liquid)/,
         loader: 'file-loader',
         options: {
@@ -71,13 +67,13 @@ module.exports = {
 
   plugins: [
     new WriteFileWebpackPlugin({
-      test: regex.images,
+      test: config.regex.images,
       useHashIndex: true,
       log: false,
     }),
 
     new WriteFileWebpackPlugin({
-      test: regex.markup,
+      test: config.regex.static,
       useHashIndex: true,
       log: false,
     }),

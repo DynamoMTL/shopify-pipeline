@@ -1,7 +1,7 @@
 const shell = require('shelljs');
 const webpack = require('webpack');
 const config = require('../config/webpack.prod.conf');
-const shopify = require('../scripts/deploy');
+const shopify = require('../lib/shopify-deploy');
 
 shell.env.NODE_ENV = 'production';
 
