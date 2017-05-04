@@ -11,6 +11,9 @@ const compiler = webpack(config);
 const server = new WebpackDevServer(compiler, {
   contentBase: 'dist/',
   hot: true,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
 });
 
 compiler.plugin('done', (stats) => {
