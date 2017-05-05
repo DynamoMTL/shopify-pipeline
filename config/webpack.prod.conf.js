@@ -1,14 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const config = require('./webpack.base.conf');
+const webpackConfig = require('./webpack.base.conf');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AssetTagToShopifyLiquid = require('../lib/AssetTagToShopifyLiquid')
 
-module.exports = merge(config, {
+module.exports = merge(webpackConfig, {
   devtool: false,
 
   module: {

@@ -73,7 +73,8 @@ module.exports = {
     }),
 
     new WriteFileWebpackPlugin({
-      test: config.regex.static,
+      // test: config.regex.static,
+      test: /^(?:(?!hot-update.json$).)*\.(liquid|json)$/,
       useHashIndex: true,
       log: false,
     }),
