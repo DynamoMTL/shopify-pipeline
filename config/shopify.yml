@@ -14,12 +14,14 @@
 ---
 
 development:
+  api_key: 0c0e78a55be5791da7339d7a1ec59398
   password: ccd5d2cac035534d860a8ac380b84e5a
   theme_id: 144205257
   store: dynamomtl.myshopify.com
   ignore_files:
 
 production:
+  api_key: 0c0e78a55be5791da7339d7a1ec59398
   password: ccd5d2cac035534d860a8ac380b84e5a
   theme_id: "live"
   store: dynamomtl.myshopify.com
