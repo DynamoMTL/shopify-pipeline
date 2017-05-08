@@ -15,6 +15,7 @@
   "engine": ">= 6.4.0",
   "dependencies": {
     "@shopify/themekit": "^0.6.11",
+    "autoprefixer": "^7.0.1",
     "babel-cli": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
@@ -31,6 +32,7 @@
     "img-loader": "^2.0.0",
     "liquid-linter": "^0.0.4",
     "node-sass": "^4.5.2",
+    "postcss-loader": "^2.0.1",
     "prompt": "^1.0.0",
     "sass-loader": "^6.0.3",
     "shelljs": "^0.7.7",
