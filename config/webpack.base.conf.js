@@ -1,18 +1,16 @@
+const webpack = require('webpack');
 const config = require('../config');
-const path = require('path');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
+const paths = require('../config/paths');
 
 module.exports = {
-  context: path.join(__dirname, '../src'),
+  context: paths.src,
 
-  entry: {
-    scripts: './assets/js/index.js',
-    static: '../lib/static-files-glob.js',
-  },
+  entry: paths.entrypoints,
 
   output: {
     filename: '[name].[hash].js',
-    path: path.resolve(__dirname, '../dist/assets'),
+    path: paths.assetsOutput,
   },
 
   resolveLoader: {
@@ -26,6 +24,9 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
+        options: {
+          configFile: paths.eslintrc,
+        },
       },
       // {
       //   enforce: 'pre',
@@ -66,6 +67,14 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ContextReplacementPlugin(
+      /allstaticfiles/,
+      paths.src,
+      true,
+      // eslint-disable-next-line
+      /^(?:(?!theme\.liquid$).)*\.(liquid|json)$/
+    ),
+
     new WriteFileWebpackPlugin({
       test: config.regex.images,
       useHashIndex: true,

@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const webpackConfig = require('./webpack.base.conf');
+const paths = require('../config/paths');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -38,7 +39,7 @@ module.exports = merge(webpackConfig, {
 
   plugins: [
     new CleanWebpackPlugin(['dist'], {
-      root: path.join(__dirname, '../'),
+      root: paths.root,
     }),
 
     new webpack.DefinePlugin({

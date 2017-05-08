@@ -1,9 +1,13 @@
-const shell = require('shelljs');
+// const path = require('path');
+// const fs = require('fs-extra');
 const webpack = require('webpack');
 const config = require('../config/webpack.prod.conf');
-const shopify = require('../lib/shopify-deploy');
+// const shopify = require('../lib/shopify-deploy');
 
-shell.env.NODE_ENV = 'production';
+// // Copy over everything from the 'static' folder
+// fs.copySync(path.join(__dirname, '../static'), path.join(__dirname, '../dist'), {
+//   dereference: true,
+// });
 
 webpack(config, (err, stats) => {
   if (err) throw err;
@@ -15,5 +19,5 @@ webpack(config, (err, stats) => {
     chunkModules: false,
   })}`);
 
-  shopify.overwrite();
+  // shopify.overwrite();
 });
