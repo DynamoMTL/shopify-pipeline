@@ -12,6 +12,9 @@
   "bugs": {
     "url": "https://github.com/DynamoMTL/foobarify-wip/issues"
   },
+  "bin": {
+    "foobarify-scripts": "./bin/foobarify-scripts.js"
+  },
   "engine": ">= 6.4.0",
   "dependencies": {
     "@shopify/themekit": "^0.6.11",
