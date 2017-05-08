@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AssetTagToShopifyLiquid = require('../lib/AssetTagToShopifyLiquid');
 
 const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 
 module.exports = merge(webpackConfig, {
   devtool: false,
@@ -26,7 +27,7 @@ module.exports = merge(webpackConfig, {
             },
             {
               loader: 'postcss-loader',
-              options: { plugins: [autoprefixer] },
+              options: { plugins: [autoprefixer, cssnano] },
             },
             'sass-loader',
           ],
