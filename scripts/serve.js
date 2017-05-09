@@ -1,23 +1,47 @@
-/* eslint-disable */
 const fs = require('fs');
-
+const path = require('path');
+const express = require('express');
+const https = require('https');
 const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
+const config = require('../config');
 const paths = require('../config/paths');
 const webpackConfig = require('../config/webpack.dev.conf');
 const shopify = require('../lib/shopify-deploy');
-const config = require('../config');
 
+const fakeCert = fs.readFileSync(path.join(__dirname, '../ssl/server.pem'));
+const sslOptions = {
+  key: fakeCert,
+  cert: fakeCert,
+};
+
+const app = express();
+const server = https.createServer(sslOptions, app);
 const compiler = webpack(webpackConfig);
-const server = new WebpackDevServer(compiler, {
-  contentBase: paths.dist,
-  hot: true,
-  https: true,
-  headers: {
-    'Access-Control-Allow-Origin': `https://${config.shopify.development.store}`,
-  },
-  stats: 'errors-only',
+
+app.use((req, res, next) => {
+  res.set('Access-Control-Allow-Origin', `https://${config.shopify.development.store}`);
+  next();
 });
+
+app.use(webpackDevMiddleware(compiler, {
+  contentBase: paths.dist,
+  // publicPath: `${webpackConfig.output.publicPath}`,
+  noInfo: true,
+  reload: false,
+  // https: true,
+  // headers: {
+  //   'Access-Control-Allow-Origin': `https://${config.shopify.development.store}`,
+  // },
+  stats: {
+    colors: true,
+    chunks: false,
+  },
+}));
+
+app.use(webpackHotMiddleware(compiler));
 
 compiler.plugin('done', (stats) => {
   let files = [];
@@ -36,6 +60,8 @@ compiler.plugin('done', (stats) => {
   });
 
   shopify.sync({ upload: files });
+  // hotMiddleware.publish({ action: 'reload' });
 });
+
 
 server.listen(config.port);
