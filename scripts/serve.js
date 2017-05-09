@@ -31,7 +31,8 @@ app.use(webpackDevMiddleware(compiler, {
   reload: false,
 }));
 
-app.use(webpackHotMiddleware(compiler));
+const hotMiddleware = webpackHotMiddleware(compiler);
+app.use(hotMiddleware);
 
 compiler.plugin('done', (stats) => {
   let files = [];
@@ -49,9 +50,16 @@ compiler.plugin('done', (stats) => {
     }
   });
 
-  shopify.sync({ upload: files });
-  // hotMiddleware.publish({ action: 'reload' });
-});
+  shopify.sync({ upload: files }).then(() => {
+    // Do not warn about updating theme.liquid, it's also updated when styles
+    // and scripts are updated.
+    if (files.length === 1 && files[0] === '/layout/theme.liquid') {
+      return;
+    }
 
+    hotMiddleware.publish({ action: 'shopify_upload_finished' });
+  // eslint-disable-next-line
+  }).catch((err) => console.log(err || 'Could not deploy to Shopify.'));
+});
 
 server.listen(config.port);
