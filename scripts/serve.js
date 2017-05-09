@@ -27,18 +27,8 @@ app.use((req, res, next) => {
 });
 
 app.use(webpackDevMiddleware(compiler, {
-  contentBase: paths.dist,
-  // publicPath: `${webpackConfig.output.publicPath}`,
   noInfo: true,
   reload: false,
-  // https: true,
-  // headers: {
-  //   'Access-Control-Allow-Origin': `https://${config.shopify.development.store}`,
-  // },
-  stats: {
-    colors: true,
-    chunks: false,
-  },
 }));
 
 app.use(webpackHotMiddleware(compiler));
