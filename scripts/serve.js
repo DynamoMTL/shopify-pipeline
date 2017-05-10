@@ -1,23 +1,38 @@
-/* eslint-disable */
 const fs = require('fs');
-
+const path = require('path');
+const express = require('express');
+const https = require('https');
 const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
+const config = require('../config');
 const paths = require('../config/paths');
 const webpackConfig = require('../config/webpack.dev.conf');
 const shopify = require('../lib/shopify-deploy');
-const config = require('../config');
 
+const fakeCert = fs.readFileSync(path.join(__dirname, '../ssl/server.pem'));
+const sslOptions = {
+  key: fakeCert,
+  cert: fakeCert,
+};
+
+const app = express();
+const server = https.createServer(sslOptions, app);
 const compiler = webpack(webpackConfig);
-const server = new WebpackDevServer(compiler, {
-  contentBase: paths.dist,
-  hot: true,
-  https: true,
-  headers: {
-    'Access-Control-Allow-Origin': `https://${config.shopify.development.store}`,
-  },
-  stats: 'errors-only',
+
+app.use((req, res, next) => {
+  res.set('Access-Control-Allow-Origin', `https://${config.shopify.development.store}`);
+  next();
 });
+
+app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  reload: false,
+}));
+
+const hotMiddleware = webpackHotMiddleware(compiler);
+app.use(hotMiddleware);
 
 compiler.plugin('done', (stats) => {
   let files = [];
@@ -35,7 +50,16 @@ compiler.plugin('done', (stats) => {
     }
   });
 
-  shopify.sync({ upload: files });
+  shopify.sync({ upload: files }).then(() => {
+    // Do not warn about updating theme.liquid, it's also updated when styles
+    // and scripts are updated.
+    if (files.length === 1 && files[0] === '/layout/theme.liquid') {
+      return;
+    }
+
+    hotMiddleware.publish({ action: 'shopify_upload_finished' });
+  // eslint-disable-next-line
+  }).catch((err) => console.log(err || 'Could not deploy to Shopify.'));
 });
 
 server.listen(config.port);

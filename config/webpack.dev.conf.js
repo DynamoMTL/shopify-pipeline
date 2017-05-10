@@ -1,9 +1,10 @@
+const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const webpackConfig = require('./webpack.base.conf');
-const config = require('./index');
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const config = require('./index');
+const webpackConfig = require('./webpack.base.conf');
 
 // so that everything is absolute
 webpackConfig.output.publicPath = `${config.domain}:${config.port}/`;
@@ -11,18 +12,13 @@ webpackConfig.output.publicPath = `${config.domain}:${config.port}/`;
 // add hot-reload related code to entry chunks
 Object.keys(webpackConfig.entry).forEach((name) => {
   webpackConfig.entry[name] = [
-    `webpack-dev-server/client?${webpackConfig.output.publicPath}`,
-    'webpack/hot/dev-server',
+    `webpack-hot-middleware/client?path=${webpackConfig.output.publicPath}__webpack_hmr`,
+    path.join(__dirname, '../lib/hot-client.js'),
   ].concat(webpackConfig.entry[name]);
 });
 
 module.exports = merge(webpackConfig, {
   devtool: '#eval-source-map',
-
-  devServer: {
-    outputPath: 'dist/',
-    inline: true,
-  },
 
   module: {
     rules: [
