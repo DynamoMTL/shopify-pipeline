@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const config = require('../config');
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin');
+const SvgStore = require('webpack-svgstore-plugin');
 const paths = require('../config/paths');
 
 module.exports = {
@@ -86,6 +87,15 @@ module.exports = {
       test: /^(?:(?!hot-update.json$).)*\.(liquid|json)$/,
       useHashIndex: true,
       log: false,
+    }),
+
+    new SvgStore({
+      svgoOptions: {
+        plugins: [
+          { removeTitle: true },
+        ],
+      },
+      prefix: 'icon',
     }),
   ],
 };
