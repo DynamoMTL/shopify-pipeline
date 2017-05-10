@@ -5,6 +5,7 @@ const https = require('https');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const openBrowser = require('react-dev-utils/openBrowser');
 
 const config = require('../config');
 const paths = require('../config/paths');
@@ -21,8 +22,10 @@ const app = express();
 const server = https.createServer(sslOptions, app);
 const compiler = webpack(webpackConfig);
 
+const shopifyUrl = `https://${config.shopify.development.store}`;
+const previewUrl = `${shopifyUrl}?preview_theme_id=${config.shopify.development.theme_id}`;
 app.use((req, res, next) => {
-  res.set('Access-Control-Allow-Origin', `https://${config.shopify.development.store}`);
+  res.set('Access-Control-Allow-Origin', shopifyUrl);
   next();
 });
 
@@ -62,4 +65,11 @@ compiler.plugin('done', (stats) => {
   }).catch((err) => console.log(err || 'Could not deploy to Shopify.'));
 });
 
-server.listen(config.port);
+server.listen(config.port, (err) => {
+  if (err) {
+    console.log(chalk.red(err));
+    return;
+  }
+
+  openBrowser(previewUrl);
+});
