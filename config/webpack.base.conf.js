@@ -95,7 +95,6 @@ module.exports = {
           { removeTitle: true },
         ],
       },
-      prefix: 'icon',
     }),
   ],
 };
