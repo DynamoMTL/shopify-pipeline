@@ -2,7 +2,7 @@
 // const fs = require('fs-extra');
 const webpack = require('webpack');
 const config = require('../config/webpack.prod.conf');
-// const shopify = require('../lib/shopify-deploy');
+const shopify = require('../lib/shopify-deploy');
 
 // // Copy over everything from the 'static' folder
 // fs.copySync(path.join(__dirname, '../static'), path.join(__dirname, '../dist'), {
@@ -19,5 +19,5 @@ webpack(config, (err, stats) => {
     chunkModules: false,
   })}`);
 
-  // shopify.overwrite();
+  shopify.overwrite();
 });
