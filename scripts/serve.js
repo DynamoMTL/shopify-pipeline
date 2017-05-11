@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
-const fs = require('fs');
+const argv = require('minimist')(process.argv.slice(2));
 const chalk = require('chalk');
-const path = require('path');
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const https = require('https');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -15,6 +16,7 @@ const config = require('../config');
 const paths = require('../config/paths');
 const webpackConfig = require('../config/webpack.dev.conf');
 const shopify = require('../lib/shopify-deploy');
+const env = require('../lib/getShopifyEnvOrDie.js')(argv.env, config.shopify);
 
 const fakeCert = fs.readFileSync(path.join(__dirname, '../ssl/server.pem'));
 const sslOptions = {
@@ -107,7 +109,7 @@ compiler.plugin('done', (stats) => {
   });
   console.log('\n');
 
-  shopify.sync({ upload: files }).then(() => {
+  shopify.sync(env, { upload: files }).then(() => {
     // Do not warn about updating theme.liquid, it's also updated when styles
     // and scripts are updated.
     if (files.length === 1 && files[0] === '/layout/theme.liquid') {
