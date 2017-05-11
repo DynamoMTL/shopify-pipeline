@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 // const path = require('path');
 // const fs = require('fs-extra');
+const argv = require('minimist')(process.argv.slice(2));
 const chalk = require('chalk');
 const webpack = require('webpack');
 const config = require('../config/webpack.prod.conf');
@@ -22,9 +23,11 @@ webpack(config, (err, stats) => {
     chunkModules: false,
   })}`);
 
-  shopify.overwrite().then(() => {
-    console.log(chalk.green('\nFiles overwritten successfully!\n'));
-  }).catch((error) => {
-    console.log(`\n${chalk.red(error)}\n`);
-  });
+  if (argv.deploy) {
+    shopify.overwrite().then(() => {
+      console.log(chalk.green('\nFiles overwritten successfully!\n'));
+    }).catch((error) => {
+      console.log(`\n${chalk.red(error)}\n`);
+    });
+  }
 });
