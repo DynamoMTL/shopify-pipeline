@@ -48,6 +48,7 @@
     "webpack-glob-entry": "^2.1.1",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "^4.1.0",
+    "webpack-svgstore-plugin": "^4.0.0",
     "write-file-webpack-plugin": "^4.0.2",
     "yamljs": "^0.2.10"
   },
