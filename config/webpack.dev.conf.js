@@ -12,7 +12,6 @@ webpackConfig.output.publicPath = `${config.domain}:${config.port}/`;
 // add hot-reload related code to entry chunks
 Object.keys(webpackConfig.entry).forEach((name) => {
   webpackConfig.entry[name] = [
-    `webpack-hot-middleware/client?path=${webpackConfig.output.publicPath}__webpack_hmr`,
     path.join(__dirname, '../lib/hot-client.js'),
   ].concat(webpackConfig.entry[name]);
 });
