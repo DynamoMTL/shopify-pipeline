@@ -131,11 +131,4 @@ compiler.plugin('done', (stats) => {
   });
 });
 
-server.listen(config.port, (err) => {
-  if (err) {
-    console.log(chalk.red(err));
-    return;
-  }
-
-  // openBrowser(previewUrl);
-});
+server.listen(config.port);
