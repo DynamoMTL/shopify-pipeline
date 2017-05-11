@@ -74,22 +74,18 @@ compiler.plugin('done', (stats) => {
 
   // If errors exist, only show errors.
   if (messages.errors.length) {
-    console.log(chalk.red('Failed to compile.'));
-    console.log();
+    console.log(chalk.red('Failed to compile.\n'));
     messages.errors.forEach((message) => {
-      console.log(message);
-      console.log();
+      console.log(`${message}\n`);
     });
     return;
   }
 
   // Show warnings if no errors were found.
   if (messages.warnings.length) {
-    console.log(chalk.yellow('Compiled with warnings.'));
-    console.log();
+    console.log(chalk.yellow('Compiled with warnings.\n'));
     messages.warnings.forEach((message) => {
-      console.log(message);
-      console.log();
+      console.log(`${message}\n`);
     });
     // Teach some ESLint tricks.
     console.log('You may use special comments to disable some warnings.');
@@ -99,21 +95,17 @@ compiler.plugin('done', (stats) => {
 
   if (!messages.errors.length && !messages.warnings.length) {
     console.log(chalk.green('Compiled successfully!'));
-    console.log();
-    console.log('The app is running at:');
-    console.log();
+    console.log('\nThe app is running at:\n');
     console.log(`  ${chalk.cyan(previewUrl)}`);
-    console.log();
   }
 
   const files = getFilesFromAssets(stats.compilation.assets);
 
-  console.log(chalk.cyan('Uploading files to Shopify...'));
-  console.log();
+  console.log(chalk.cyan('\nUploading files to Shopify...\n'));
   files.forEach((file) => {
     console.log(`  ${file}`);
   });
-  console.log();
+  console.log('\n');
 
   shopify.sync({ upload: files }).then(() => {
     // Do not warn about updating theme.liquid, it's also updated when styles
@@ -124,9 +116,7 @@ compiler.plugin('done', (stats) => {
 
     hotMiddleware.publish({ action: 'shopify_upload_finished' });
 
-    console.log();
-    console.log(chalk.green('Files uploaded successfully!'));
-    console.log();
+    console.log(chalk.green('\nFiles uploaded successfully!\n'));
   }).catch((err) => {
     console.log(chalk.red(err));
   });

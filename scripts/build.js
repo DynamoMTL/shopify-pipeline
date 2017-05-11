@@ -23,12 +23,8 @@ webpack(config, (err, stats) => {
   })}`);
 
   shopify.overwrite().then(() => {
-    console.log();
-    console.log(chalk.green('Files overwritten successfully!'));
-    console.log();
+    console.log(chalk.green('\nFiles overwritten successfully!\n'));
   }).catch((error) => {
-    console.log();
-    console.log(chalk.red(error));
-    console.log();
+    console.log(`\n${chalk.red(error)}\n`);
   });
 });
