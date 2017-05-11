@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = require('./index');
 const webpackConfig = require('./webpack.base.conf');
+const userWebpackConfig = require('../lib/getUserWebpackConfig')('dev');
 
 // so that everything is absolute
 webpackConfig.output.publicPath = `${config.domain}:${config.port}/`;
@@ -49,4 +50,4 @@ module.exports = merge(webpackConfig, {
       inject: true,
     }),
   ],
-});
+}, userWebpackConfig);
