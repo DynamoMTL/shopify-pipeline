@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable comma-dangle, no-console */
 const spawn = require('cross-spawn');
 const paths = require('../config/paths');
 
@@ -9,6 +10,7 @@ let result;
 
 switch (script) {
   case 'build':
+  case 'deploy':
   case 'serve':
     result = spawn.sync(
       'node',
