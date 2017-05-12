@@ -16,6 +16,7 @@ module.exports = {
   dist: resolveApp('dist'),
   static: resolveApp('static'),
   src: resolveApp('src'),
+  lib: resolveSelf('lib'),
   entrypoints: {
     scripts: resolveApp('src/assets/js/index.js'),
     static: resolveSelf('lib/static-files-glob.js'),

@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const webpackConfig = require('./webpack.base.conf');
+const userWebpackConfig = require('../lib/getUserWebpackConfig')('prod');
 const paths = require('../config/paths');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -92,4 +93,4 @@ module.exports = merge(webpackConfig, {
       chunks: ['vendor'],
     }),
   ],
-});
+}, userWebpackConfig);
