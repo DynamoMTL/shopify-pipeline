@@ -15,7 +15,7 @@ module.exports = {
   },
 
   resolveLoader: {
-    modules: ['node_modules', 'scripts/loaders'],
+    modules: ['node_modules', paths.lib],
   },
 
   module: {
@@ -29,13 +29,6 @@ module.exports = {
           configFile: paths.eslintrc,
         },
       },
-      // {
-      //   enforce: 'pre',
-      //   test: /\.liquid$/,
-      //   exclude: /node_modules/,
-      //   include: /templates/,
-      //   loader: 'liquidlint-loader',
-      // },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -58,11 +51,19 @@ module.exports = {
       },
       {
         test: config.regex.static,
+        // excluding layout/theme.liquid as it's also being emitted by the HtmlWebpackPlugin
         exclude: /(node_modules|layout\/theme\.liquid)/,
         loader: 'file-loader',
         options: {
           name: '../[path][name].[ext]',
         },
+      },
+      // must be the first *.liquid loader.
+      {
+        test: /\.liquid$/,
+        exclude: /node_modules/,
+        include: /templates/,
+        loader: 'liquid-loader',
       },
     ],
   },
