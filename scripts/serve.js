@@ -31,6 +31,8 @@ const compiler = webpack(webpackConfig);
 const shopifyUrl = `https://${config.shopify.development.store}`;
 const previewUrl = `${shopifyUrl}?preview_theme_id=${config.shopify.development.theme_id}`;
 
+let isFirstCompilation = true;
+
 function getFilesFromAssets(assets) {
   let files = [];
 
@@ -110,6 +112,11 @@ compiler.plugin('done', (stats) => {
   console.log('\n');
 
   shopify.sync(env, { upload: files }).then(() => {
+    if (isFirstCompilation) {
+      isFirstCompilation = false;
+      openBrowser(previewUrl);
+    }
+
     // Do not warn about updating theme.liquid, it's also updated when styles
     // and scripts are updated.
     if (files.length === 1 && files[0] === '/layout/theme.liquid') {
@@ -124,11 +131,4 @@ compiler.plugin('done', (stats) => {
   });
 });
 
-server.listen(config.port, (err) => {
-  if (err) {
-    console.log(chalk.red(err));
-    return;
-  }
-
-  openBrowser(previewUrl);
-});
+server.listen(config.port);
