@@ -112,6 +112,8 @@ compiler.plugin('done', (stats) => {
   console.log('\n');
 
   shopify.sync(env, { upload: files }).then(() => {
+    console.log(chalk.green('\nFiles uploaded successfully!\n'));
+
     if (isFirstCompilation) {
       isFirstCompilation = false;
       openBrowser(previewUrl);
@@ -124,8 +126,6 @@ compiler.plugin('done', (stats) => {
     }
 
     hotMiddleware.publish({ action: 'shopify_upload_finished' });
-
-    console.log(chalk.green('\nFiles uploaded successfully!\n'));
   }).catch((err) => {
     console.log(chalk.red(err));
   });
