@@ -45,6 +45,11 @@ module.exports = {
         },
       },
       {
+        test: /fonts\/.*\.(eot|svg|ttf|woff|woff2)$/,
+        exclude: /node_modules/,
+        loader: 'file-loader',
+      },
+      {
         test: config.regex.images,
         exclude: /node_modules/,
         loader: ['file-loader', 'img-loader'],
