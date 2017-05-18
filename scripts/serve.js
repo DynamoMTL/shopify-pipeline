@@ -112,9 +112,6 @@ compiler.plugin('done', (stats) => {
   console.log('\n');
 
   shopify.sync(env, { upload: files }).then(() => {
-    const action = 'shopify_upload_finished';
-    let force = true;
-
     console.log(chalk.green('\nFiles uploaded successfully!\n'));
 
     if (isFirstCompilation) {
@@ -122,13 +119,10 @@ compiler.plugin('done', (stats) => {
       openBrowser(previewUrl);
     }
 
-    // Do not force reload if only theme.liquid got updated, it's also updated when styles
-    // and scripts are updated.
-    if (files.length === 1 && files[0] === '/layout/theme.liquid') {
-      force = false;
-    }
-
-    hotMiddleware.publish({ action, force });
+    hotMiddleware.publish({
+      action: 'shopify_upload_finished',
+      force: files.length === 1 && files[0] === '/layout/theme.liquid',
+    });
   }).catch((err) => {
     console.log(chalk.red(err));
   });
