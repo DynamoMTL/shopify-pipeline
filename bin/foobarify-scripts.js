@@ -22,7 +22,7 @@ switch (script) {
   case 'test':
     result = spawn.sync(
       'jest',
-      [].concat(args),
+      ['./src/specs'].concat(args),
       { stdio: 'inherit' }
     );
     process.exit(result.status);
