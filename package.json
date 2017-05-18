@@ -15,6 +15,8 @@
   },
   "engine": ">= 6.4.0",
   "dependencies": {
+    "babel-jest": "20.0.3",
+    "jest": "20.0.3",
     "@shopify/themekit": "0.6.11",
     "autoprefixer": "6.7.7",
     "babel-cli": "6.24.1",

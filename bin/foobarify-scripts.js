@@ -10,7 +10,6 @@ switch (script) {
   case 'build':
   case 'deploy':
   case 'serve':
-  case 'test':
     result = spawn.sync(
       'node',
       [require.resolve(`../scripts/${script}`)].concat(args),
@@ -18,7 +17,14 @@ switch (script) {
     )
     process.exit(result.status)
     break
-
+  case 'test':
+    result = spawn.sync(
+      './node_modules/jest/bin/jest.js',
+      [].concat(args),
+      { stdio: 'inherit' }
+    )
+    process.exit(result.status)
+    break
   default:
     console.log(`Unknown script "${script}".`)
     console.log('Perhaps you need to update foobarify-scripts?')
