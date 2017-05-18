@@ -11,6 +11,16 @@ function resolveSelf(relativePath) {
   return path.resolve(__dirname, '../', relativePath)
 }
 
+function getEslintrc() {
+  const appEslintrc = resolveApp('./.eslintrc')
+
+  if (fs.existsSync(appEslintrc)) {
+    return appEslintrc
+  }
+
+  return resolveSelf('./.eslintrc')
+}
+
 module.exports = {
   root: appDirectory,
   dist: resolveApp('dist'),
@@ -23,5 +33,5 @@ module.exports = {
   },
   assetsOutput: resolveApp('dist/assets'),
   userShopifyConfig: resolveApp('shopify.yml'),
-  eslintrc: resolveSelf('./.eslintrc')
+  eslintrc: getEslintrc()
 }
