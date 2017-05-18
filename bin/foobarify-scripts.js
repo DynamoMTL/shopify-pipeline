@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /* eslint-disable comma-dangle, no-console */
 const spawn = require('cross-spawn');
-const paths = require('../config/paths');
 
 const script = process.argv[2];
 const args = process.argv.slice(3);
@@ -21,8 +20,8 @@ switch (script) {
     break;
   case 'test':
     result = spawn.sync(
-      'jest',
-      ['./src/specs'].concat(args),
+      './node_modules/jest/bin/jest.js',
+      [].concat(args),
       { stdio: 'inherit' }
     );
     process.exit(result.status);
