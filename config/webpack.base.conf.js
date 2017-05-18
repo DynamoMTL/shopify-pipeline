@@ -52,7 +52,10 @@ module.exports = {
       {
         test: config.regex.images,
         exclude: /node_modules/,
-        loader: ['file-loader', 'img-loader'],
+        use: [
+          { loader: 'file-loader', options: { name: '[name].[hash].[ext]' } },
+          { loader: 'img-loader' },
+        ],
       },
       {
         test: config.regex.static,
@@ -68,7 +71,7 @@ module.exports = {
         test: /\.liquid$/,
         exclude: /node_modules/,
         include: /templates/,
-        loader: 'liquid-loader',
+        loader: 'extract-loader!liquid-loader',
       },
     ],
   },
