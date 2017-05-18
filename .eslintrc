@@ -1,9 +1,8 @@
 {
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "node": true
-  },
-  "extends": "airbnb-base"
+  "extends": "airbnb-base",
+  "rules": {
+    "semi": ["error", "never"],
+    "no-console": ["error", "never"],
+    "comma-dangle": ["error", "never"]
+  }
 }
