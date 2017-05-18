@@ -21,8 +21,8 @@ switch (script) {
     break;
   case 'test':
     result = spawn.sync(
-      'ava',
-      [`${paths.src}/specs/**/*.js`].concat(args),
+      'jest',
+      [].concat(args),
       { stdio: 'inherit' }
     );
     process.exit(result.status);
