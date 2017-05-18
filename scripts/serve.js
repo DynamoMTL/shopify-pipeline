@@ -119,13 +119,10 @@ compiler.plugin('done', (stats) => {
       openBrowser(previewUrl);
     }
 
-    // Do not warn about updating theme.liquid, it's also updated when styles
-    // and scripts are updated.
-    if (files.length === 1 && files[0] === '/layout/theme.liquid') {
-      return;
-    }
-
-    hotMiddleware.publish({ action: 'shopify_upload_finished' });
+    hotMiddleware.publish({
+      action: 'shopify_upload_finished',
+      force: files.length === 1 && files[0] === '/layout/theme.liquid',
+    });
   }).catch((err) => {
     console.log(chalk.red(err));
   });

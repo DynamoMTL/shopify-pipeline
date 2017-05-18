@@ -45,6 +45,11 @@ module.exports = {
         },
       },
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'hmr-alamo-loader',
+      },
+      {
         test: /fonts\/.*\.(eot|svg|ttf|woff|woff2)$/,
         exclude: /node_modules/,
         loader: 'file-loader',
