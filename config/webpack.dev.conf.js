@@ -1,21 +1,21 @@
-const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const config = require('./index');
-const webpackConfig = require('./webpack.base.conf');
-const userWebpackConfig = require('../lib/getUserWebpackConfig')('dev');
+const config = require('./index')
+const webpackConfig = require('./webpack.base.conf')
+const userWebpackConfig = require('../lib/getUserWebpackConfig')('dev')
 
 // so that everything is absolute
-webpackConfig.output.publicPath = `${config.domain}:${config.port}/`;
+webpackConfig.output.publicPath = `${config.domain}:${config.port}/`
 
 // add hot-reload related code to entry chunks
 Object.keys(webpackConfig.entry).forEach((name) => {
   webpackConfig.entry[name] = [
-    path.join(__dirname, '../lib/hot-client.js'),
-  ].concat(webpackConfig.entry[name]);
-});
+    path.join(__dirname, '../lib/hot-client.js')
+  ].concat(webpackConfig.entry[name])
+})
 
 module.exports = merge(webpackConfig, {
   devtool: '#eval-source-map',
@@ -27,15 +27,15 @@ module.exports = merge(webpackConfig, {
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } },
-        ],
-      },
-    ],
+          { loader: 'sass-loader', options: { sourceMap: true } }
+        ]
+      }
+    ]
   },
 
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: '"development"' },
+      'process.env': { NODE_ENV: '"development"' }
     }),
 
     new webpack.HotModuleReplacementPlugin(),
@@ -46,7 +46,7 @@ module.exports = merge(webpackConfig, {
       excludeChunks: ['static'],
       filename: '../layout/theme.liquid',
       template: './layout/theme.liquid',
-      inject: true,
-    }),
-  ],
-}, userWebpackConfig);
+      inject: true
+    })
+  ]
+}, userWebpackConfig)
