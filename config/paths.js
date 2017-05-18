@@ -1,14 +1,14 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 
-const appDirectory = fs.realpathSync(process.cwd());
+const appDirectory = fs.realpathSync(process.cwd())
 
 function resolveApp(relativePath) {
-  return path.resolve(appDirectory, relativePath);
+  return path.resolve(appDirectory, relativePath)
 }
 
 function resolveSelf(relativePath) {
-  return path.resolve(__dirname, '../', relativePath);
+  return path.resolve(__dirname, '../', relativePath)
 }
 
 module.exports = {
@@ -19,9 +19,9 @@ module.exports = {
   lib: resolveSelf('lib'),
   entrypoints: {
     scripts: resolveApp('src/assets/js/index.js'),
-    static: resolveSelf('lib/static-files-glob.js'),
+    static: resolveSelf('lib/static-files-glob.js')
   },
   assetsOutput: resolveApp('dist/assets'),
   userShopifyConfig: resolveApp('shopify.yml'),
-  eslintrc: resolveSelf('./.eslintrc'),
-};
+  eslintrc: resolveSelf('./.eslintrc')
+}
