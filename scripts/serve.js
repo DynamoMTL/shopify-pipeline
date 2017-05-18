@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const argv = require('minimist')(process.argv.slice(2))
 const chalk = require('chalk')
 const express = require('express')

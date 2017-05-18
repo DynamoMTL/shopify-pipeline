@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
 const spawn = require('cross-spawn')
 
 const script = process.argv[2]
