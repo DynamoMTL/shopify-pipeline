@@ -110,7 +110,7 @@ compiler.plugin('done', (stats) => {
   })
   console.log('\n')
 
-  shopify.sync(env, { upload: files }).then(() => {
+  shopify.sync(env, files).then(() => {
     console.log(chalk.green('\nFiles uploaded successfully!\n'))
 
     if (isFirstCompilation) {
