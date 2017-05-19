@@ -104,6 +104,10 @@ compiler.plugin('done', (stats) => {
 
   const files = getFilesFromAssets(stats.compilation.assets)
 
+  if (!files.length) {
+    return
+  }
+
   console.log(chalk.cyan('\nUploading files to Shopify...\n'))
   files.forEach((file) => {
     console.log(`  ${file}`)
@@ -120,7 +124,9 @@ compiler.plugin('done', (stats) => {
 
     hotMiddleware.publish({
       action: 'shopify_upload_finished',
-      force: files.length === 1 && files[0] === '/layout/theme.liquid'
+      // don't force a reload if only theme.liquid has been updated, has it get's
+      // updated even when we change scritps/styles
+      force: !(files.length === 1 && files[0] === '/layout/theme.liquid')
     })
   }).catch((err) => {
     console.log(chalk.red(err))
