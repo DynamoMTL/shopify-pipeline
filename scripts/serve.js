@@ -1,5 +1,6 @@
 const argv = require('minimist')(process.argv.slice(2))
 const chalk = require('chalk')
+const createHash = require('crypto').createHash
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
@@ -32,18 +33,32 @@ const previewUrl = `${shopifyUrl}?preview_theme_id=${config.shopify.development.
 
 let isFirstCompilation = true
 
+const assetsHash = {}
+
+/**
+ * Return an array of changed files that have been written to the file system.
+ * Uses the same method as write-file-webpack-plugin to determine which files
+ * have changed.
+ * @see https://github.com/gajus/write-file-webpack-plugin/blob/master/src/index.js#L134-L145
+ *
+ * @param   assets  Object   Assets obejct from webpack stats.compilation object
+ * @return          Array
+ */
 function getFilesFromAssets(assets) {
   let files = []
 
   Object.keys(assets).forEach((key) => {
     const asset = assets[key]
 
-    if (asset.emitted) {
-      // webpack-dev-server doesn't write assets to disk, see webpack.base.conf.js
-      // where we use WriteFileWebpackPlugin to write certain assets to disk
-      // (the ones to be uploaded) (the others are served from memory)
-      if (fs.existsSync(asset.existsAt)) {
+    if (asset.emitted && fs.existsSync(asset.existsAt)) {
+      const source = asset.source()
+      const assetSource = Array.isArray(source) ? source.join('\n') : source
+      const assetHash = createHash('sha256').update(assetSource).digest('hex')
+
+      // new file, or existing one that changed
+      if (!assetsHash[key] || assetsHash[key] !== assetHash) {
         files = [...files, asset.existsAt.replace(paths.dist, '')]
+        assetsHash[key] = assetHash
       }
     }
   })
@@ -104,13 +119,17 @@ compiler.plugin('done', (stats) => {
 
   const files = getFilesFromAssets(stats.compilation.assets)
 
+  if (!files.length) {
+    return
+  }
+
   console.log(chalk.cyan('\nUploading files to Shopify...\n'))
   files.forEach((file) => {
     console.log(`  ${file}`)
   })
   console.log('\n')
 
-  shopify.sync(env, { upload: files }).then(() => {
+  shopify.sync(env, files).then(() => {
     console.log(chalk.green('\nFiles uploaded successfully!\n'))
 
     if (isFirstCompilation) {
@@ -120,7 +139,9 @@ compiler.plugin('done', (stats) => {
 
     hotMiddleware.publish({
       action: 'shopify_upload_finished',
-      force: files.length === 1 && files[0] === '/layout/theme.liquid'
+      // don't force a reload if only theme.liquid has been updated, has it get's
+      // updated even when we change scritps/styles
+      force: !(files.length === 1 && files[0] === '/layout/theme.liquid')
     })
   }).catch((err) => {
     console.log(chalk.red(err))
