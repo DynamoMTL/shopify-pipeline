@@ -14,7 +14,7 @@ const autoprefixer = require('autoprefixer')
 const cssnano = require('cssnano')
 
 module.exports = merge(webpackConfig, {
-  devtool: false,
+  devtool: 'hidden-source-map',
 
   module: {
     rules: [
