@@ -1,3 +1,8 @@
+/*
+ * Run Webpack with the webpack.prod.conf.js configuration file. Write files to disk.
+ *
+ * If the `deploy` argument has been passed, deploy to Shopify when the compilation is done.
+ */
 import chalk from 'chalk'
 import minimist from 'minimist'
 import webpack from 'webpack'

@@ -3,14 +3,30 @@ import path from 'path'
 
 const appDirectory = fs.realpathSync(process.cwd())
 
+/**
+ * Resolve a relative path to the app directory
+ *
+ * @return String
+ */
 function resolveApp(relativePath) {
   return path.resolve(appDirectory, relativePath)
 }
 
+/**
+ * Resolve a relative path to the tool directory
+ *
+ * @return String
+ */
 function resolveSelf(relativePath) {
   return path.resolve(__dirname, '../', relativePath)
 }
 
+/**
+ * Find and return the userland .eslintrc if one exists, otherwise, returns
+ * foobarify-scripts .eslintrc.
+ *
+ * @return  String  Path to an .eslintrc file
+ */
 function getEslintrc() {
   const appEslintrc = resolveApp('./.eslintrc')
 
@@ -24,7 +40,6 @@ function getEslintrc() {
 export default {
   root: appDirectory,
   dist: resolveApp('dist'),
-  static: resolveApp('static'),
   src: resolveApp('src'),
   lib: resolveSelf('lib'),
   entrypoints: {
