@@ -7,7 +7,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import paths from '../config/paths'
+import config from '../config'
 import AssetTagToShopifyLiquid from '../lib/AssetTagToShopifyLiquid'
 import webpackConfig from './webpack.base.conf'
 import getUserWebpackConfig from '../lib/getUserWebpackConfig'
@@ -41,7 +41,7 @@ export default merge(webpackConfig, {
 
   plugins: [
     new CleanWebpackPlugin(['dist'], {
-      root: paths.root
+      root: config.paths.root
     }),
 
     new webpack.DefinePlugin({

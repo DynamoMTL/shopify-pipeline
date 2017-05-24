@@ -18,7 +18,6 @@ import clearConsole from 'react-dev-utils/clearConsole'
 import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages'
 
 import config from '../config'
-import paths from '../config/paths'
 import webpackConfig from '../config/webpack.dev.conf'
 import shopify from '../lib/shopify-deploy'
 import getShopifyEnvOrDie from '../lib/getShopifyEnvOrDie'
@@ -65,7 +64,7 @@ function getFilesFromAssets(assets) {
 
       // new file, or existing one that changed
       if (!assetsHash[key] || assetsHash[key] !== assetHash) {
-        files = [...files, asset.existsAt.replace(paths.dist, '')]
+        files = [...files, asset.existsAt.replace(config.paths.dist, '')]
         assetsHash[key] = assetHash
       }
     }

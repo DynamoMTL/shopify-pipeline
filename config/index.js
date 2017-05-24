@@ -2,6 +2,7 @@ import YAML from 'yamljs'
 import paths from './paths'
 
 export default {
+  paths,
   domain: 'https://localhost',
   port: 8080,
   regex: {
