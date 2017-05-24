@@ -1,22 +1,29 @@
-const argv = require('minimist')(process.argv.slice(2))
-const chalk = require('chalk')
-const createHash = require('crypto').createHash
-const express = require('express')
-const fs = require('fs')
-const path = require('path')
-const https = require('https')
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const openBrowser = require('react-dev-utils/openBrowser')
-const clearConsole = require('react-dev-utils/clearConsole')
-const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages')
+/**
+ * Launch an HTTPS Express server with webpack dev and hot middleware.
+ *
+ * After successful compilation, uploads modified files (written to disk) to Shopify.
+ */
+import minimist from 'minimist'
+import crypto from 'crypto'
+import chalk from 'chalk'
+import express from 'express'
+import fs from 'fs'
+import path from 'path'
+import https from 'https'
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import openBrowser from 'react-dev-utils/openBrowser'
+import clearConsole from 'react-dev-utils/clearConsole'
+import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages'
 
-const config = require('../config')
-const paths = require('../config/paths')
-const webpackConfig = require('../config/webpack.dev.conf')
-const shopify = require('../lib/shopify-deploy')
-const env = require('../lib/getShopifyEnvOrDie.js')(argv.env, config.shopify)
+import config from '../config'
+import webpackConfig from '../config/webpack.dev.conf'
+import shopify from '../lib/shopify-deploy'
+import getShopifyEnvOrDie from '../lib/getShopifyEnvOrDie'
+
+const argv = minimist(process.argv.slice(2))
+const env = getShopifyEnvOrDie(argv.env, config.shopify)
 
 const fakeCert = fs.readFileSync(path.join(__dirname, '../ssl/server.pem'))
 const sslOptions = {
@@ -53,11 +60,11 @@ function getFilesFromAssets(assets) {
     if (asset.emitted && fs.existsSync(asset.existsAt)) {
       const source = asset.source()
       const assetSource = Array.isArray(source) ? source.join('\n') : source
-      const assetHash = createHash('sha256').update(assetSource).digest('hex')
+      const assetHash = crypto.createHash('sha256').update(assetSource).digest('hex')
 
       // new file, or existing one that changed
       if (!assetsHash[key] || assetsHash[key] !== assetHash) {
-        files = [...files, asset.existsAt.replace(paths.dist, '')]
+        files = [...files, asset.existsAt.replace(config.paths.dist, '')]
         assetsHash[key] = assetHash
       }
     }
@@ -90,16 +97,15 @@ compiler.plugin('done', (stats) => {
   // webpack messages massaging and logging gracioulsy provided by create-react-app.
   const messages = formatWebpackMessages(stats.toJson({}, true))
 
-  // If errors exist, only show errors.
   if (messages.errors.length) {
     console.log(chalk.red('Failed to compile.\n'))
     messages.errors.forEach((message) => {
       console.log(`${message}\n`)
     })
+    // If errors exist, only show errors.
     return
   }
 
-  // Show warnings if no errors were found.
   if (messages.warnings.length) {
     console.log(chalk.yellow('Compiled with warnings.\n'))
     messages.warnings.forEach((message) => {
@@ -117,6 +123,7 @@ compiler.plugin('done', (stats) => {
     console.log(`  ${chalk.cyan(previewUrl)}`)
   }
 
+  // files we'll upload
   const files = getFilesFromAssets(stats.compilation.assets)
 
   if (!files.length) {
@@ -125,7 +132,7 @@ compiler.plugin('done', (stats) => {
 
   console.log(chalk.cyan('\nUploading files to Shopify...\n'))
   files.forEach((file) => {
-    console.log(`  ${file}`)
+    console.log(`\t${file}`)
   })
   console.log('\n')
 
@@ -137,6 +144,7 @@ compiler.plugin('done', (stats) => {
       openBrowser(previewUrl)
     }
 
+    // Notify the HMR client that we finished uploading files to Shopify
     hotMiddleware.publish({
       action: 'shopify_upload_finished',
       // don't force a reload if only theme.liquid has been updated, has it get's

@@ -1,21 +1,21 @@
-const webpack = require('webpack')
-const config = require('../config')
-const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
-const SvgStore = require('webpack-svgstore-plugin')
-const paths = require('../config/paths')
+import webpack from 'webpack'
+import WriteFileWebpackPlugin from 'write-file-webpack-plugin'
+import SvgStore from 'webpack-svgstore-plugin'
 
-module.exports = {
-  context: paths.src,
+import config from '../config'
 
-  entry: paths.entrypoints,
+export default {
+  context: config.paths.src,
+
+  entry: config.paths.entrypoints,
 
   output: {
     filename: '[name].[hash].js',
-    path: paths.assetsOutput
+    path: config.paths.assetsOutput
   },
 
   resolveLoader: {
-    modules: ['node_modules', paths.lib]
+    modules: ['node_modules', config.paths.lib]
   },
 
   module: {
@@ -26,7 +26,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'eslint-loader',
         options: {
-          configFile: paths.eslintrc
+          configFile: config.paths.eslintrc
         }
       },
       {
@@ -84,7 +84,7 @@ module.exports = {
   plugins: [
     new webpack.ContextReplacementPlugin(
       /allstaticfiles/,
-      paths.src,
+      config.paths.src,
       true,
       /^(?:(?!theme\.liquid$).)*\.(liquid|json)$/
     ),
