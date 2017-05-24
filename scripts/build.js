@@ -1,10 +1,13 @@
-const argv = require('minimist')(process.argv.slice(2))
-const chalk = require('chalk')
-const webpack = require('webpack')
-const webpackConfig = require('../config/webpack.prod.conf')
-const config = require('../config')
-const shopify = require('../lib/shopify-deploy')
-const env = require('../lib/getShopifyEnvOrDie.js')(argv.env, config.shopify)
+import chalk from 'chalk'
+import minimist from 'minimist'
+import webpack from 'webpack'
+import webpackConfig from '../config/webpack.prod.conf'
+import config from '../config'
+import shopify from '../lib/shopify-deploy'
+import getShopifyEnvOrDie from '../lib/getShopifyEnvOrDie'
+
+const argv = minimist(process.argv.slice(2))
+const env = getShopifyEnvOrDie(argv.env, config.shopify)
 
 webpack(webpackConfig, (err, stats) => {
   if (err) throw err

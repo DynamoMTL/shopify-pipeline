@@ -1,10 +1,11 @@
-const webpack = require('webpack')
-const config = require('../config')
-const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
-const SvgStore = require('webpack-svgstore-plugin')
-const paths = require('../config/paths')
+import webpack from 'webpack'
+import WriteFileWebpackPlugin from 'write-file-webpack-plugin'
+import SvgStore from 'webpack-svgstore-plugin'
 
-module.exports = {
+import config from '../config'
+import paths from '../config/paths'
+
+export default {
   context: paths.src,
 
   entry: paths.entrypoints,

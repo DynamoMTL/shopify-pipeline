@@ -1,19 +1,20 @@
-const path = require('path')
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const webpackConfig = require('./webpack.base.conf')
-const userWebpackConfig = require('../lib/getUserWebpackConfig')('prod')
-const paths = require('../config/paths')
+import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
+import path from 'path'
+import merge from 'webpack-merge'
+import webpack from 'webpack'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const AssetTagToShopifyLiquid = require('../lib/AssetTagToShopifyLiquid')
+import paths from '../config/paths'
+import AssetTagToShopifyLiquid from '../lib/AssetTagToShopifyLiquid'
+import webpackConfig from './webpack.base.conf'
+import getUserWebpackConfig from '../lib/getUserWebpackConfig'
 
-const autoprefixer = require('autoprefixer')
-const cssnano = require('cssnano')
+const userWebpackConfig = getUserWebpackConfig('prod')
 
-module.exports = merge(webpackConfig, {
+export default merge(webpackConfig, {
   devtool: 'hidden-source-map',
 
   module: {
