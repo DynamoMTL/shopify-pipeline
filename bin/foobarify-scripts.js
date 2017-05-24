@@ -11,7 +11,7 @@ switch (script) {
   case 'deploy':
   case 'serve':
     result = spawn.sync(
-      'node',
+      'babel-node',
       [require.resolve(`../scripts/${script}`)].concat(args),
       { stdio: 'inherit' }
     )
