@@ -22,6 +22,8 @@ Excited? Let's get started!
 
 ---
 
+Wanna jump right in? Click here to get started, bud! [link]
+
 ## Supported Features
 ### Module Bundling and Treeshaking
 We are using Webpack 2 to bundle and optimize all you Javascript modules, which also has the added benefit of allowing dead code removal (treeshaking).
@@ -84,8 +86,80 @@ Pipeify has a set of flags and warning baked in to prevent you from pushing code
 
 This minimizes the risks of deploying changes to the live site while in local development.
 
-## Project Structure and Minimal Requirements
 ## Getting Started
+[TBD once we go open source]
+
+## Project Structure and Minimal Requirements
+Once Pipeify has created the scaffolding of your project, it will have the following structure:
+
+```
+├── package.json
+├── .eslintrc [link]
+├── config
+│   └── shopify.yml [link]
+    └── webpack.dev.conf.js [link]
+    └── webpack.prod.conf.js [link]
+└── src
+    ├── assets
+    │   ├── fonts
+    │   ├── images
+    │   ├── js [link]
+    │   └── sass [link]
+    │   └── svg [link]
+    ├── config [link]
+    │   ├── settings_data.json
+    │   └── settings_schema.json
+    ├── layout
+    │   └── theme.liquid [link]
+    ├── locales [link]
+    │   └── en.default.json
+    ├── sections [link]
+    ├── snippets [link]
+    ├── specs [link]
+    └── templates [link]
+        ├── blog.liquid
+        ├── cart.liquid
+        ├── collection.liquid
+        ├── gift_card.liquid
+        ├── index.liquid
+        ├── page.liquid
+        └── product.liquid
+```
+
+`.eslintrc` (optional)
+If you add a ESlint config file on the root of your app, Pipeify will use that file for the eslint-loader.
+
+`config/shopify.yml`
+Pipeify will use this config file to setup the development and production flow. It is mimicking what is already being used by Themekit [https://shopify.github.io/themekit/configuration/] and will work accordingly.
+
+`config/webpack.[dev|prod].conf.js`
+If Pipeify finds one or both those files in the `config` folder, it will merge them with the default Webpack config files everytime you start the Webpack server or that you build your project, allowing you to add loaders and plugins to augment the base toolset provided to you by Pipeify.
+
+We are using https://www.npmjs.com/package/webpack-merge [link] to elegantly achieve this goal.
+
+Please use this feature wisely as to not override the core functionalities of Pipeify. [Should we add more to this?]
+
+`src/assets/js`
+-
+
+`src/assets/sass`
+-
+
+`src/assets/svg`
+-
+
+`src/config`
+-
+
+`src/layout/theme.liquid`
+-
+
+`src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
+-
+
+`src/specs`
+-
+
 ## Using the Tool
 ## Customizing your Workflow
 ## Caveats
@@ -94,22 +168,12 @@ This minimizes the risks of deploying changes to the live site while in local de
 ## License
 ## Made by Dynamo
 
-- explanation and link to the host project (wait for now)
-  - why do we need to use a separate project?
 - how the project needs to be structured
 - how to setup the tool
   - npm install and all that jazz 
-- how to setup the environment (shopify)
-  - talk about the config
-  - link to the slate/themekit documentation
 - api
   - how to use the cli
   - command list and what they do
-- how to configure and customize
-  - which parts are customizable and how to do it
-  - webpack
-  - eslint
-  - jest ?
 - few caveats and quirks
   - issues of the tool or some weird things we have to do
   - the whole story around plugins and code injection
