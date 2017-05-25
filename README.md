@@ -22,7 +22,9 @@ Excited? Let's get started!
 
 ---
 
-Wanna jump right in? Click here to get started, bud! [link]
+## Wanna jump right in? Click here to get started, bud! [link]
+
+---
 
 ## Supported Features
 - **Module Bundling and Treeshaking**: We are using Webpack 2 to bundle and optimize all you Javascript modules, which also has the added benefit of allowing dead code removal (treeshaking).
@@ -92,35 +94,92 @@ Once Pipeify has created the scaffolding of your project, it will have the follo
 ```
 
 - `.eslintrc` (optional)
+  
   If you add a ESlint config file on the root of your app, Pipeify will use that file for the eslint-loader.
 
 - `config/shopify.yml`
+  
   Pipeify will use this config file to setup the development and production flow. It is mimicking what is already being used by Themekit [https://shopify.github.io/themekit/configuration/] and will work accordingly.
 
 - `config/webpack.[dev|prod].conf.js`
+  
   If Pipeify finds one or both those files in the `config` folder, it will merge them with the default Webpack config files everytime you start the Webpack server or that you build your project, allowing you to add loaders and plugins to augment the base toolset provided to you by Pipeify.
 
   We are using https://www.npmjs.com/package/webpack-merge [link] to elegantly achieve this goal.
 
-  Please use this feature wisely as to not override the core functionalities of Pipeify. [Should we add more to this?]
+  Please use this feature wisely as to not override the core functionalities of Pipeify. [Good enough?]
 
 - `src/assets/js`
+  
+  This folder will contain all your JS units and it needs to minimally contain an `index.js` file, which will act as the entry point for you JS application.
+
+  You can use ES6/ES2015's standard, which incidently allows you to require your modules with the `import` syntax:
+  ```
+  import { contains } from 'lodash'
+  import Foo from './modules/foo'
+  // const Bar = require('./modules/bar') is also available if that's your jam!
+  ```
+
 - `src/assets/sass`
+  
+  Pipeify fully supports `.css`, `.scss` and `.sass` files and their syntax, including `@import`.
+
+  You **must** include your style index file at the top of your `index.js` file for Webpack to be able to load your styles into its build process, as such:
+
+  ```
+  import '../sass/index.scss';
+  ```
+
+  Note that you should not use liquid templating in your styles as Pipeify will take care of generating the right URLs and paths depending on the environment.
+
+  If you intend to use Stylelint support [link to coming soon], also note that you can only use `.scss` files.
+
 - `src/assets/svg`
-- `src/config`
-- `src/layout/theme.liquid`
-- `src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
+  
+  If you want to use the SVG Store technique [link], you need to ...
+
+  [I can't remember what we need to do ;)]
+
+- `src/config`, `src/layout/theme.liquid`, `src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
+
+  The aforementionned files and folders are required by Shopify [link to the documentation] for any given theme.
+
+  Pipeify only adds the strict minimum required to be able to deploy a theme to your Shopify server without any errors. You can start building your application from this baseline.
+
 - `src/specs`
 
-## Using the Tool
+  Jest will look for files named `*.spec.js` or `*.test.js` in the `specs` folder of your application to run the test suite.
+
+  You can nest and organize your specs in subfolders as long as the filenames follow this convention.
+
+  More info on Jest here [link to jest's documentation]
+
+## Using the Tool (API)
+- `pipeify serve`
+
+- `pipeify build [-- [--deploy] [--env]]`
+
+- `pipeify deploy [-- --env]`
+
+- `pipeify test`
+
+
 ## Customizing your Workflow
+
+
 ## Caveats
+- local ssh certificate
+- code injection from plugins
+- liquid logic in files ?
+
 ## Roadmap
+
 ## Contributions
+
 ## License
+
 ## Made by Dynamo
 
-- how the project needs to be structured
 - how to setup the tool
   - npm install and all that jazz 
 - api
