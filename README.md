@@ -91,7 +91,7 @@ Once Pipeify has created the scaffolding of your project, it will have the follo
   
 If you add a ESlint config file on the root of your app, Pipeify will use that file for the eslint-loader.
 
-#### [2] `config/shopify.yml`
+#### [2] `config` `/shopify.yml`
   
 Pipeify will use this config file to setup the development and production flow. It is mimicking what is already being used by Themekit [https://shopify.github.io/themekit/configuration/] and will work accordingly.
 
