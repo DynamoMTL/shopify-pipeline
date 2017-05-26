@@ -61,7 +61,7 @@ Once Pipeify has created the scaffolding of your project, it will have the follo
 
 ```
 ├── package.json
-├── .eslintrc [1]
+├── .eslintrc [[1](#foo-1)]
 ├── config
 │   └── shopify.yml [2]
 │   └── webpack.dev.conf.js [3]
@@ -93,7 +93,7 @@ Once Pipeify has created the scaffolding of your project, it will have the follo
         └── product.liquid
 ```
 
-[1] `.eslintrc` (optional)
+<a name="foo-1">[1] `.eslintrc` (optional)</a>
   
 If you add a ESlint config file on the root of your app, Pipeify will use that file for the eslint-loader.
 
