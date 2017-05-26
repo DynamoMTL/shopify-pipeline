@@ -64,8 +64,8 @@ Once Pipeify has created the scaffolding of your project, it will have the follo
 ├── .eslintrc [link]
 ├── config
 │   └── shopify.yml [link]
-    └── webpack.dev.conf.js [link]
-    └── webpack.prod.conf.js [link]
+│   └── webpack.dev.conf.js [link]
+│   └── webpack.prod.conf.js [link]
 └── src
     ├── assets
     │   ├── fonts
@@ -155,14 +155,24 @@ Once Pipeify has created the scaffolding of your project, it will have the follo
   More info on Jest here [link to jest's documentation]
 
 ## Using the Tool (API)
-- `pipeify serve`
+Here are the available API commands for Pipeify:
 
-- `pipeify build [-- [--deploy] [--env]]`
+`pipeify serve [-- --development]`
+  - Starts the Webpack server, deploys a first build to Shopify and launches the theme preview site.
+  - Will serve assets on `https://localhost:8080`
+  - (Optional) You can pass it an environment as a flag; it will default to `development` environment
 
-- `pipeify deploy [-- --env]`
+`pipeify build [-- [--deploy] [--development]]`
+  - Builds a production-ready version of the theme and outputs it to the `dist` folder
+  - (Optional) You can pass it a `deploy` flag, which will push the compiled theme to Shopify after the build
+  - (Optional) You can pass it an environment as a flag; it will default to `development` environment
 
-- `pipeify test`
+`pipeify deploy [-- --development]`
+  - Alias for `pipeify build -- --deploy`
 
+`pipeify test`
+  - Will start Jest testing, targeting files living in `/specs` and following the `*.{test|spec}.js` globing
+  - Note that we are supporting ES6 with a `babel-jest` integration
 
 ## Customizing your Workflow
 
