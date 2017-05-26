@@ -27,13 +27,13 @@ So excited you Wanna get started right away? [Boom](#getting-started)
 
 - **Asset Optimization and Fingerprinting**: Webpack is used to skim through all your templates and find the assets and dependencies needed for the build, running those through its process and spitting out optimized and fingerprinted assets in the build folder. It will also map those assets by rendering the correct path in the templates.
 
-- **SVG Store**: We are supporting the use of SVG Store out of the box using webpack-svgstore-plugin [link]. You can jump to this section [link] to learn how to use it in Pipeify.
+- **SVG Store**: We are supporting the use of SVG Store out of the box using webpack-svgstore-plugin [link]. You can jump to this [section](#6-svg-store) to learn how to use it in Pipeify.
 
 - **Hot Module Reloading**: Once you start developing your application, the Webpack server will allow you to inject modified JS modules directly on your Shopify development theme without reloading the page.
 
 - **Sourcemaps**: We added support for JS and Sass sourcemaps when you are in development mode.
 
-- **JS Code Linting**: ESlint is used to by default to lint your JS files as part of the build process. You can add your own `.eslintrc` in your project and Pipeify will pick it up. Or you can rely on the one that is included by default here: [link to file].
+- **JS Code Linting**: ESlint is used to by default to lint your JS files as part of the build process. You can add your own `.eslintrc` in your project and Pipeify will pick it up. Or you can rely on the one that is included by default [here](.eslintrc).
 
 - **Sass Support and Linting**: Pipeify supports CSS and Sass by default. We also added support for Sass `@imports` for better style modularity. Stylelint support is also in the works [link to the roadmap].
 
@@ -87,15 +87,21 @@ Once Pipeify has created the scaffolding of your project, it will have the follo
         └── product.liquid
 ```
 
-#### [1] `.eslintrc` (optional)
+#### [1] ESlint Config
+
+`.eslintrc` (optional)
   
 If you add a ESlint config file on the root of your app, Pipeify will use that file for the eslint-loader.
 
-#### [2] `config` `/shopify.yml`
+#### [2] Shopify Config
+
+`config/shopify.yml`
   
 Pipeify will use this config file to setup the development and production flow. It is mimicking what is already being used by Themekit [https://shopify.github.io/themekit/configuration/] and will work accordingly.
 
-#### [3] `config/webpack.[dev|prod].conf.js`
+#### [3] Webpack Config
+
+`config/webpack.[dev|prod].conf.js`
   
 If Pipeify finds one or both those files in the `config` folder, it will merge them with the default Webpack config files everytime you start the Webpack server or that you build your project, allowing you to add loaders and plugins to augment the base toolset provided to you by Pipeify.
 
@@ -103,7 +109,9 @@ We are using https://www.npmjs.com/package/webpack-merge [link] to elegantly ach
 
 Please use this feature wisely as to not override the core functionalities of Pipeify. [Good enough?]
 
-#### [4] `src/assets/js`
+#### [4] JS Files
+
+`src/assets/js`
   
 This folder will contain all your JS units and it needs to minimally contain an `index.js` file, which will act as the entry point for you JS application.
 
@@ -114,7 +122,9 @@ import Foo from './modules/foo'
 // const Bar = require('./modules/bar') is also available if that's your jam!
 ```
 
-#### [5] `src/assets/sass`
+#### [5] Sass and CSS Files
+
+`src/assets/sass`
   
 Pipeify fully supports `.css`, `.scss` and `.sass` files and their syntax, including `@import`.
 
@@ -128,19 +138,25 @@ Note that you should not use liquid templating in your styles as Pipeify will ta
 
 If you intend to use Stylelint support [link to coming soon], also note that you can only use `.scss` files.
 
-#### [6] `src/assets/svg`
+#### [6] SVG Store
+
+`src/assets/svg`
   
 If you want to use the SVG Store technique [link], you need to ...
 
 [I can't remember what we need to do ;)]
 
-#### [7] `src/config`, `src/layout/theme.liquid`, `src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
+#### [7] Shopify Required
+
+`src/config`, `src/layout/theme.liquid`, `src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
 
 The aforementionned files and folders are required by Shopify [link to the documentation] for any given theme.
 
 Pipeify only adds the strict minimum required to be able to deploy a theme to your Shopify server without any errors. You can start building your application from this baseline.
 
-#### [8] `src/specs`
+#### [8] Specs
+
+`src/specs`
 
 Jest will look for files named `*.spec.js` or `*.test.js` in the `specs` folder of your application to run the test suite.
 
