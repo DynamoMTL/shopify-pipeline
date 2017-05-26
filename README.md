@@ -17,7 +17,8 @@ So excited you Wanna get started right away? [Boom](#getting-started)
 - [Caveats](#caveats)
 - [Roadmap](#roadmap)
 - [Contribtions](#contributions)
-
+- [Thanks](#thanks)
+- [Made by Dynamo](#made-by-dynamo)
 ---
 
 ## Supported Features
@@ -142,15 +143,24 @@ If you intend to use Stylelint support [link to coming soon], also note that you
 
 `src/assets/svg`
   
-If you want to use the SVG Store technique [link], you need to ...
+If you want to use the [SVG Store technique](https://css-tricks.com/svg-sprites-use-better-icon-fonts/), we added its support out of the box with the help of [webpack-svgstore-plugin](https://github.com/mrsum/webpack-svgstore-plugin).
 
-[I can't remember what we need to do ;)]
+Here are the steps necessary to use it: 
+1. Place all the necessary Svg files inside the `svg` folder
+2. Somewhere in your JS application, you need to create this variable and assignation:
+    ```
+    var __svg__ = { path: '../svg/**/*.svg', name: '[hash].logos.svg' };
+    ```
+    
+    This will tell the SVG Store plugin [that it needs to generate the sprite file](https://github.com/mrsum/webpack-svgstore-plugin#2-put-function-mark-at-your-chunk).
+
+Given that this is less than an ideal integration, we will look for better ways to generate the store [in the future](#roadmap).
 
 #### [7] Shopify Required
 
 `src/config`, `src/layout/theme.liquid`, `src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
 
-The aforementionned files and folders are required by Shopify [link to the documentation] for any given theme.
+The aforementionned [files and folders are required by Shopify](https://help.shopify.com/themes/development/templates) for any given theme.
 
 Pipeify only adds the strict minimum required to be able to deploy a theme to your Shopify server without any errors. You can start building your application from this baseline.
 
@@ -158,11 +168,11 @@ Pipeify only adds the strict minimum required to be able to deploy a theme to yo
 
 `src/specs`
 
-Jest will look for files named `*.spec.js` or `*.test.js` in the `specs` folder of your application to run the test suite.
+The way it is set up, Jest will look for files named `*.spec.js` or `*.test.js` in the `specs` folder of your application to run the test suite.
 
 You can nest and organize your specs in subfolders as long as the filenames follow this convention.
 
-More info on Jest here [link to jest's documentation]
+The `pipeify test` is just a proxy for launching `jest` and as such we recommend you read [their documentation](https://facebook.github.io/jest/docs/getting-started.html) to learn more about the framework and how to use it.
 
 ## Using the Tool (API)
 Here are the available API commands for Pipeify:
@@ -185,6 +195,7 @@ Here are the available API commands for Pipeify:
   - Note that we are supporting ES6 with a `babel-jest` integration
 
 ## Customizing your Workflow
+(More to come)
 
 ## Caveats
 - local ssh certificate
@@ -194,10 +205,25 @@ Here are the available API commands for Pipeify:
 ## Roadmap
 - Add a decent test coverage to the tool
 - Add support for Stylelint (with customizable rules)
+- Find a better solution for SVG Store support
 
 ## Contributions
+(More to come)
 
 ## License
 MIT, see LICENSE.md [link] for details.
 
+## Thanks
+- create-react-app
+- shopify, themekit and slate?
+
 ## Made by Dynamo
+This tool was created with love by [Dynamo](http://godynamo.com/), a Montreal-based full-service digital design studio. 
+
+The goal behind Pipeify is to alleviate some of the downsides of working within the Shopify ecosystem and bring forward some of the nice features you get when building custom e-commerce websites outside of it.
+
+We hope that it will help you be more efficient in your work and achieve your goals!
+
+Cheers,
+
+[The Dynamo Team](http://godynamo.com/en/about)
