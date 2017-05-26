@@ -1,35 +1,29 @@
 # Pipeify - A modern pipeline for Shopify website development
 
-[CI badges ?]
-
 Pipeify aims at giving you access to a better, smoother and more modern workflow for building, testing and deploying Shopify themes and websites.
 
-It is built on top of Webpack 2 and allows to use tools such as ESlint, Babel, Sass, SVGO, Themekit, Stylelint and Jest to help you count on features like ES6+ support, module bundling, hot module reloading, automatic watch-and-deploy, JS unit testing, asset fingerprinting, and much more! [Add links]
+It is built on top of [Webpack 2](https://webpack.github.io/) and allows to use tools such as [ESlint](http://eslint.org/), [Babel](https://babeljs.io/), [Sass](http://sass-lang.com/), [SVGO](https://github.com/svg/svgo), [Themekit](https://shopify.github.io/themekit/), [Stylelint](https://stylelint.io/) and [Jest](https://facebook.github.io/jest/) to help you count on features like ES6+ support, module bundling, hot module reloading, automatic watch-and-deploy, JS unit testing, asset fingerprinting, and much more!
 
-Excited? Let's get started!
+So excited you Wanna get started right away? [Boom](#getting-started)
 
 ---
 
 **Table of Contents**
-- [Supported Features](#)
-- [Project Structure and Minimal Requirements](#)
-- [Getting Started](#)
-- [Using the tool](#)
-- [Customizing your Workflow](#)
-- [Caveats](#)
-- [Roadmap](#)
-- [Contribtions](#)
-
----
-
-## Wanna jump right in? Click here to get started, bud! [link]
+- [Supported Features](#supported-features)
+- [Project Structure and Minimal Requirements](#project-structure-and-minimal-requirements)
+- [Getting Started](#getting-started)
+- [Using the tool](#using-the-tool)
+- [Customizing your Workflow](#customizing-your-workflow)
+- [Caveats](#caveats)
+- [Roadmap](#roadmap)
+- [Contribtions](#contributions)
 
 ---
 
 ## Supported Features
 - **Module Bundling and Treeshaking**: We are using Webpack 2 to bundle and optimize all you Javascript modules, which also has the added benefit of allowing dead code removal (treeshaking).
 
-- **ES6+ Support**: Webpack and Babel are used to support the ES6+ standards in an effective way. Here is the config used by babel-loader [link] in the build process: [link to code].
+- **ES6+ Support**: Webpack and Babel are used to support the ES6+ standards in an effective way via [babel-loader](https://github.com/babel/babel-loader).
 
 - **Asset Optimization and Fingerprinting**: Webpack is used to skim through all your templates and find the assets and dependencies needed for the build, running those through its process and spitting out optimized and fingerprinted assets in the build folder. It will also map those assets by rendering the correct path in the templates.
 
@@ -61,7 +55,7 @@ Once Pipeify has created the scaffolding of your project, it will have the follo
 
 ```
 ├── package.json
-├── .eslintrc [[1](#foo-1)]
+├── .eslintrc [1]
 ├── config
 │   └── shopify.yml [2]
 │   └── webpack.dev.conf.js [3]
@@ -93,15 +87,15 @@ Once Pipeify has created the scaffolding of your project, it will have the follo
         └── product.liquid
 ```
 
-<a name="foo-1">[1] `.eslintrc` (optional)</a>
+#### [1] `.eslintrc` (optional)
   
 If you add a ESlint config file on the root of your app, Pipeify will use that file for the eslint-loader.
 
-[2] `config/shopify.yml`
+#### [2] `config/shopify.yml`
   
 Pipeify will use this config file to setup the development and production flow. It is mimicking what is already being used by Themekit [https://shopify.github.io/themekit/configuration/] and will work accordingly.
 
-[3] `config/webpack.[dev|prod].conf.js`
+#### [3] `config/webpack.[dev|prod].conf.js`
   
 If Pipeify finds one or both those files in the `config` folder, it will merge them with the default Webpack config files everytime you start the Webpack server or that you build your project, allowing you to add loaders and plugins to augment the base toolset provided to you by Pipeify.
 
@@ -109,7 +103,7 @@ We are using https://www.npmjs.com/package/webpack-merge [link] to elegantly ach
 
 Please use this feature wisely as to not override the core functionalities of Pipeify. [Good enough?]
 
-[4] `src/assets/js`
+#### [4] `src/assets/js`
   
 This folder will contain all your JS units and it needs to minimally contain an `index.js` file, which will act as the entry point for you JS application.
 
@@ -120,7 +114,7 @@ import Foo from './modules/foo'
 // const Bar = require('./modules/bar') is also available if that's your jam!
 ```
 
-[5] `src/assets/sass`
+#### [5] `src/assets/sass`
   
 Pipeify fully supports `.css`, `.scss` and `.sass` files and their syntax, including `@import`.
 
@@ -134,19 +128,19 @@ Note that you should not use liquid templating in your styles as Pipeify will ta
 
 If you intend to use Stylelint support [link to coming soon], also note that you can only use `.scss` files.
 
-[6] `src/assets/svg`
+#### [6] `src/assets/svg`
   
 If you want to use the SVG Store technique [link], you need to ...
 
 [I can't remember what we need to do ;)]
 
-[7] `src/config`, `src/layout/theme.liquid`, `src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
+#### [7] `src/config`, `src/layout/theme.liquid`, `src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
 
 The aforementionned files and folders are required by Shopify [link to the documentation] for any given theme.
 
 Pipeify only adds the strict minimum required to be able to deploy a theme to your Shopify server without any errors. You can start building your application from this baseline.
 
-[8] `src/specs`
+#### [8] `src/specs`
 
 Jest will look for files named `*.spec.js` or `*.test.js` in the `specs` folder of your application to run the test suite.
 
@@ -182,6 +176,8 @@ Here are the available API commands for Pipeify:
 - liquid logic in files ?
 
 ## Roadmap
+- Add a decent test coverage to the tool
+- Add support for Stylelint (with customizable rules)
 
 ## Contributions
 
