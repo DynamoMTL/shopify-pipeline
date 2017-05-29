@@ -3,27 +3,24 @@
  *
  * After successful compilation, uploads modified files (written to disk) to Shopify.
  */
-import minimist from 'minimist'
-import crypto from 'crypto'
-import chalk from 'chalk'
-import express from 'express'
-import fs from 'fs'
-import path from 'path'
-import https from 'https'
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
-import openBrowser from 'react-dev-utils/openBrowser'
-import clearConsole from 'react-dev-utils/clearConsole'
-import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages'
+const argv = require('minimist')(process.argv.slice(2))
+const chalk = require('chalk')
+const createHash = require('crypto').createHash
+const express = require('express')
+const fs = require('fs')
+const path = require('path')
+const https = require('https')
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const openBrowser = require('react-dev-utils/openBrowser')
+const clearConsole = require('react-dev-utils/clearConsole')
+const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages')
 
-import config from '../config'
-import webpackConfig from '../config/webpack.dev.conf'
-import shopify from '../lib/shopify-deploy'
-import getShopifyEnvOrDie from '../lib/getShopifyEnvOrDie'
-
-const argv = minimist(process.argv.slice(2))
-const env = getShopifyEnvOrDie(argv.env, config.shopify)
+const config = require('../config')
+const webpackConfig = require('../config/webpack.dev.conf')
+const shopify = require('../lib/shopify-deploy')
+const env = require('../lib/getShopifyEnvOrDie.js')(argv.env, config.shopify)
 
 const fakeCert = fs.readFileSync(path.join(__dirname, '../ssl/server.pem'))
 const sslOptions = {
@@ -60,7 +57,7 @@ function getFilesFromAssets(assets) {
     if (asset.emitted && fs.existsSync(asset.existsAt)) {
       const source = asset.source()
       const assetSource = Array.isArray(source) ? source.join('\n') : source
-      const assetHash = crypto.createHash('sha256').update(assetSource).digest('hex')
+      const assetHash = createHash('sha256').update(assetSource).digest('hex')
 
       // new file, or existing one that changed
       if (!assetsHash[key] || assetsHash[key] !== assetHash) {

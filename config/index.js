@@ -1,7 +1,7 @@
-import YAML from 'yamljs'
-import paths from './paths'
+const paths = require('./paths')
+const YAML = require('yamljs')
 
-export default {
+module.exports = {
   paths,
   domain: 'https://localhost',
   port: 8080,
