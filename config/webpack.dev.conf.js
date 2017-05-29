@@ -1,12 +1,11 @@
-import path from 'path'
-import webpack from 'webpack'
-import merge from 'webpack-merge'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import config from './index'
-import webpackConfig from './webpack.base.conf'
-import getUserWebpackConfig from '../lib/getUserWebpackConfig'
+const path = require('path')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const userWebpackConfig = getUserWebpackConfig('dev')
+const config = require('./index')
+const webpackConfig = require('./webpack.base.conf')
+const userWebpackConfig = require('../lib/getUserWebpackConfig')('dev')
 
 // so that everything is absolute
 webpackConfig.output.publicPath = `${config.domain}:${config.port}/`
@@ -18,7 +17,7 @@ Object.keys(webpackConfig.entry).forEach((name) => {
   ].concat(webpackConfig.entry[name])
 })
 
-export default merge(webpackConfig, {
+module.exports = merge(webpackConfig, {
   devtool: '#eval-source-map',
 
   module: {

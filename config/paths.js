@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+const fs = require('fs')
+const path = require('path')
 
 const appDirectory = fs.realpathSync(process.cwd())
 
@@ -37,7 +37,7 @@ function getEslintrc() {
   return resolveSelf('./.eslintrc')
 }
 
-export default {
+module.exports = {
   root: appDirectory,
   dist: resolveApp('dist'),
   src: resolveApp('src'),
