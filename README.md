@@ -182,7 +182,7 @@ The way it is set up, Jest will look for files named `*.spec.js` or `*.test.js` 
 
 You can nest and organize your specs in subfolders as long as the filenames follow this convention.
 
-The `pipeify test` is just a proxy for launching `jest` and as such we recommend you read [their documentation](https://facebook.github.io/jest/docs/getting-started.html) to learn more about the framework and how to use it.
+The `test` command is just a proxy for launching `jest` and as such we recommend you read [their documentation](https://facebook.github.io/jest/docs/getting-started.html) to learn more about the framework and how to use it.
 
 ## Using the Tool
 
@@ -197,8 +197,10 @@ To have access to Pipeify's CLI commands, you then have two options:
       xxx: './node_modules/bin/pipeify xxx',
       ...
     }
+    
+    // In the terminal:
+    // yarn xxx --someflag
     ```
-
     Note that Pipeify will create those for you on project creation.
 
 ### API Commands
