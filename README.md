@@ -242,7 +242,7 @@ Here are the available API commands for Pipeify:
 (More to come)
 
 ## License
-MIT, see [LICENSE.md](LICENSE.md) for details.
+MIT, see [LICENSE](LICENSE) for details.
 
 ## Thanks
 - create-react-app
