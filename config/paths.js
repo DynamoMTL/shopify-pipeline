@@ -47,6 +47,6 @@ export default {
     static: resolveSelf('lib/static-files-glob.js')
   },
   assetsOutput: resolveApp('dist/assets'),
-  userShopifyConfig: resolveApp('shopify.yml'),
+  userShopifyConfig: resolveApp('config/shopify.yml'),
   eslintrc: getEslintrc()
 }
