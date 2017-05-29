@@ -116,7 +116,7 @@ Pipeify will use this config file to setup the development and production flow. 
   
 If Pipeify finds one or both those files in the `config` folder, it will merge them with the default Webpack config files everytime you start the webpack-dev-server or that you build your project, allowing you to add loaders and plugins to augment the base toolset provided to you by Pipeify.
 
-We are using (webpack-merge)[https://www.npmjs.com/package/webpack-merge] to elegantly achieve this goal.
+We are using [webpack-merge](https://www.npmjs.com/package/webpack-merge) to elegantly achieve this goal.
 
 Of course, with great power comes great responsibility: please use this feature wisely as to not override the core functionalities of Pipeify.
 
@@ -190,11 +190,11 @@ The `test` command is just a proxy for launching `jest` and as such we recommend
 There are [various compelling reasons](https://www.smashingmagazine.com/2016/01/issue-with-global-node-npm-packages/) why we should not rely on global npm packages. And as such we advise you to not do so when using Pipeify.
 
 To have access to Pipeify's CLI commands, you then have two options:
-- In the terminal, append the path to your local package to the command like so `./node_modules/bin/pipeify xxx`
+- In the terminal, append the path to your local package to the command like so `./node_modules/bin/pipeify command`
 - In the `package.json` file, you can create yarn/npm scripts to proxy the commands, like this:
     ```
     scripts: {
-      xxx: './node_modules/bin/pipeify xxx',
+      xxx: 'pipeify command',
       ...
     }
     
