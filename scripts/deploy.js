@@ -1,7 +1,7 @@
 /**
  * Wrapper around the `build.js` script that ensure the `deploy` argument is passed.
  */
-import spawn from 'cross-spawn'
+const spawn = require('cross-spawn')
 
 const args = process.argv.slice(3)
 
