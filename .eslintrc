@@ -4,5 +4,8 @@
     "semi": ["error", "never"],
     "no-console": ["error", { "allow": ["log", "warn"] }],
     "comma-dangle": ["error", "never"]
+  },
+  "env": {
+    "jest": true
   }
 }
