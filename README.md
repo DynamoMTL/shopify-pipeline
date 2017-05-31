@@ -228,15 +228,26 @@ Here are the available API commands for Pipeify:
 
 ## Caveats
 ### How to generate a local SSH certificate
+In order to be able to use local assets in Shopify's environment, you will need to allow your browser to use `https://localhost:8080` as a safe URL.
+
+To do so, you must:
+1. Launch the webpack-dev-server; it will launch the Shopify's theme preview, but will not accept assets coming from `localhost`
+2. Navigate to `https://localhost:8080` in the same browser you intend to use for development
+3. Discard the warning and proceed to the URL; you will see an error page, but it's cool
+4. Go back to the Shopify's theme preview and you should now have local assets working on the distant server
+
 ### How to deal with Shopify Apps that inject code in templates and files in your theme
+
 ### You should not rely on liquid helpers in your JS and CSS files
+
 ### How to make HMR-compliant code
-  - More info here: http://andrewhfarmer.com/webpack-hmr-tutorial/#part-2-code-changes)
+To be able to use some sweet sweet HMR in your flow, you either need to use a framework that supports it (e.g. React, Vue, etc.) or modify your JS modules to be HMR-compatible. More info on how to do that [here](http://andrewhfarmer.com/webpack-hmr-tutorial/#part-2-code-changes).
 
 ## Roadmap
 - Add a decent test coverage to the tool
 - Add support for Stylelint (with customizable rules)
 - Find a better solution for SVG Store support
+- Show a better landing page when proceeding to `https://localhost:8080`
 
 ## Contributions
 (More to come)
