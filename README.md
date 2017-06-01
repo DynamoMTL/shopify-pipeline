@@ -216,9 +216,6 @@ Here are the available API commands for Pipeify:
   - (Optional) You can pass it a `deploy` flag, which will push the compiled theme to Shopify after the build
   - (Optional) You can pass it an environment as a flag; it will default to `development` environment
 
-`deploy [-- --env=development]`
-  - Alias for `build -- --deploy`
-
 `test`
   - Will start Jest testing, targeting files living in `/specs` and following the `*.{test|spec}.js` globbing
   - Note that we are supporting ES6 with a `babel-jest` integration
