@@ -26,8 +26,8 @@ module.exports = merge(webpackConfig, {
         test: /\.s[ac]ss$/,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } }
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
         ]
       }
     ]
