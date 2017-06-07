@@ -159,12 +159,12 @@ Here are the steps necessary to use it:
 1. Place all the necessary Svg files inside the `svg` folder
 2. Somewhere in your JS application, you need to create this variable and assignment:
     ```
-    var __svg__ = { path: '../svg/**/*.svg', name: '[hash].logos.svg' };
+    var __svg__ = { path: '../svg/**/*.svg', name: 'logos.svg' };
     ```
     
     This will tell the SVG Store plugin [that it needs to generate the sprite file](https://github.com/mrsum/webpack-svgstore-plugin#2-put-function-mark-at-your-chunk).
-
-Given that this is less than an ideal integration, we will look for better ways to generate the store [in the future](#roadmap).
+    
+Note that the plugin will add a `icon-` prefix to your file name as the `id` of the symbol in the sprite. There is no way to change this at the moment. Given that this is less than an ideal integration, we will look for better ways to generate the store [in the future](#roadmap).
 
 #### [7] Shopify Required
 
