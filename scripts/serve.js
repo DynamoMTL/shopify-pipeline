@@ -32,8 +32,8 @@ const app = express()
 const server = https.createServer(sslOptions, app)
 const compiler = webpack(webpackConfig)
 
-const shopifyUrl = `https://${config.shopify.development.store}`
-const previewUrl = `${shopifyUrl}?preview_theme_id=${config.shopify.development.theme_id}`
+const shopifyUrl = `https://${config.shopify[env].store}`
+const previewUrl = `${shopifyUrl}?preview_theme_id=${config.shopify[env].theme_id}`
 
 let isFirstCompilation = true
 
