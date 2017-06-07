@@ -216,9 +216,6 @@ Here are the available API commands for Pipeify:
   - (Optional) You can pass it a `deploy` flag, which will push the compiled theme to Shopify after the build
   - (Optional) You can pass it an environment as a flag; it will default to `development` environment
 
-`deploy [-- --env=development]`
-  - Alias for `build -- --deploy`
-
 `test`
   - Will start Jest testing, targeting files living in `/specs` and following the `*.{test|spec}.js` globbing
   - Note that we are supporting ES6 with a `babel-jest` integration
@@ -244,7 +241,6 @@ To do so, you must:
 To be able to use some sweet sweet HMR in your flow, you either need to use a framework that supports it (e.g. React, Vue, etc.) or modify your JS modules to be HMR-compatible. More info on how to do that [here](http://andrewhfarmer.com/webpack-hmr-tutorial/#part-2-code-changes).
 
 ## Roadmap
-- Add a decent test coverage to the tool
 - Add support for Stylelint (with customizable rules)
 - Find a better solution for SVG Store support
 - Show a better landing page when proceeding to `https://localhost:8080`
