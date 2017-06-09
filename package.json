@@ -11,7 +11,7 @@
     "url": "https://github.com/DynamoMTL/foobarify-wip/issues"
   },
   "bin": {
-    "foobarify-scripts": "./bin/foobarify-scripts.js"
+    "shopify-pipeline": "./cli.js"
   },
   "engine": ">= 6.4.0",
   "dependencies": {
