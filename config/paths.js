@@ -23,7 +23,7 @@ function resolveSelf(relativePath) {
 
 /**
  * Find and return the userland .eslintrc if one exists, otherwise, returns
- * foobarify-scripts .eslintrc.
+ * shopify-pipeline .eslintrc.
  *
  * @return  String  Path to an .eslintrc file
  */

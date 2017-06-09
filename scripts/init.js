@@ -9,10 +9,10 @@ module.exports = (root) => {
   const packageJson = require(packageJsonPath)
 
   packageJson.scripts = {
-    serve: 'foobarify-scripts serve',
-    build: 'foobarify-scripts build',
-    deploy: 'foobarify-scripts build --deploy',
-    test: 'foobarify-scripts test --coverage'
+    serve: 'shopify-pipeline serve',
+    build: 'shopify-pipeline build',
+    deploy: 'shopify-pipeline build --deploy',
+    test: 'shopify-pipeline test --coverage'
   }
   packageJson.babel = { presets: ['env'] }
 
