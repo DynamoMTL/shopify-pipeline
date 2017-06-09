@@ -1,13 +1,5 @@
-@import './fonts';
-
-h1 {
-  font-family: 'FeFCrm2';
-}
-
-h2 {
-  font-family: 'IM_FELL_French_Canon_Roman';
-}
+@import 'modules/foo';
 
 body {
-  background: green;
+  background-color: red;
 }

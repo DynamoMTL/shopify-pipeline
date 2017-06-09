@@ -1,9 +1,10 @@
 // Import main stylesheet
-import '../sass/index.scss'
-import './ex'
+import '../sass/index.scss';
 
-export const sum = (a, b) => a + b
+// Utilities
+import Foo from './utilities/foo';
 
-export default {
-  sum
-}
+/* eslint-disable */
+console.log(Foo.bar("Boom!"));
+
+var __svg__ = { path: '../svg/**/*.svg', name: '[hash].logos.svg' };
