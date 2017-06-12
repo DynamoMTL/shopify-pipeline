@@ -35,6 +35,12 @@ module.exports = merge(webpackConfig, {
             'sass-loader'
           ]
         })
+      },
+      {
+        test: /\.liquid$/,
+        exclude: /node_modules/,
+        include: /templates/,
+        loader: 'extract-loader!liquid-loader?dev-server=false'
       }
     ]
   },

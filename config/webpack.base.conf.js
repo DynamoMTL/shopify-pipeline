@@ -70,13 +70,6 @@ module.exports = {
         options: {
           name: '../[path][name].[ext]'
         }
-      },
-      // must be the first *.liquid loader.
-      {
-        test: /\.liquid$/,
-        exclude: /node_modules/,
-        include: /templates/,
-        loader: 'extract-loader!liquid-loader'
       }
     ]
   },
