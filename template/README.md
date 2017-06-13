@@ -6,6 +6,7 @@ Here is a list of the available commands:
 ```
 yarn serve
 yarn build
+yarn deploy
 yarn test
 ```
 
