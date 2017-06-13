@@ -1,5 +1,7 @@
 # Shopify Pipeline - A modern pipeline for Shopify theme development
 
+(**Disclaimer:** This project is still in beta.)
+
 Shopify Pipeline aims at giving you access to a better, smoother and more modern workflow for building, testing and deploying Shopify themes and websites.
 
 It is built on top of [Webpack 2](https://webpack.github.io/) and uses tools such as [ESlint](http://eslint.org/), [Babel](https://babeljs.io/), [Sass](http://sass-lang.com/), [SVGO](https://github.com/svg/svgo), [Theme Kit](https://shopify.github.io/themekit/), [Stylelint](https://stylelint.io/) and [Jest](https://facebook.github.io/jest/) to help you count on features like ES6+ support, module bundling, hot module reloading, automatic watch-and-deploy, JS unit testing, asset fingerprinting, and much more!
@@ -49,9 +51,23 @@ So excited you wanna get started right away? [Boom](#getting-started)
 **Safe Watch and Deploy**: Shopify Pipeline has a set of flags and warnings baked in to prevent you from pushing code to the `main` live theme (unless you explicitely want to). This minimizes the risks of deploying changes to the live site while in local development.
 
 ## Getting Started
-[TBD once we go open source]
-### Create a project
+Shopify Pipeline is composed of two main pieces:
+
+1. This current application, which is the CLI and what is used to build your theme,
+2. A project scaffolder to help you get started quickly on development.
+
+### Create a new project
+To start a new project, you will need to install and run the `create-shopify-pipeline` scaffolder, as explained here: https://github.com/DynamoMTL/create-shopify-pipeline#getting-started.
+
+In a gist, with `yarn`, creating a new project is as easy as follows:
+```
+yarn create shopify-pipeline name-of-your-project
+```
+
 ### Setup your Shopify environments
+Once you have bootstraped your development app, you will need to setup your `shopify.yml` file with the right information provided by Shopify.
+
+We will defer to Shopify's documentation on how to give API access and where to find the `api_key`,`password`, `theme_id`, `store` necessary for the CLI to interact with the Shopify servers: https://github.com/Shopify/slate-cli/blob/master/store-configuration.md.
 
 ## Project Structure
 Once Shopify Pipeline has created the scaffolding of your project, it will have the following structure:
@@ -190,11 +206,11 @@ The `test` command is just a proxy for launching `jest` and as such we recommend
 There are [various compelling reasons](https://www.smashingmagazine.com/2016/01/issue-with-global-node-npm-packages/) why we should not rely on global npm packages. And as such, we advise you to not do so when using Shopify Pipeline.
 
 To have access to Shopify Pipeline's CLI commands, you then have two options:
-- In the terminal, append the path to your local package to the command like so: `./node_modules/bin/pipeify command`
+- In the terminal, append the path to your local package to the command like so: `./node_modules/.bin/shopify-pipeline command`
 - In the `package.json` file, you can create yarn/npm scripts to proxy the commands, like this:
     ```
     scripts: {
-      xxx: 'pipeify command',
+      xxx: 'shopify-pipeline command',
       ...
     }
     
@@ -234,8 +250,10 @@ To do so, you must:
 4. Go back to the Shopify's theme preview and you should now have local assets working on the distant server
 
 ### How to deal with Shopify Apps that inject code in templates and files in your theme
+(More to come)
 
 ### You should not rely on liquid helpers in your JS and CSS files
+(More to come)
 
 ### How to make HMR-compliant code
 To be able to use some sweet sweet HMR in your flow, you either need to use a framework that supports it (e.g. React, Vue, etc.) or modify your JS modules to be HMR-compatible. More info on how to do that [here](http://andrewhfarmer.com/webpack-hmr-tutorial/#part-2-code-changes).
@@ -252,9 +270,9 @@ To be able to use some sweet sweet HMR in your flow, you either need to use a fr
 MIT, see [LICENSE](LICENSE) for details.
 
 ## Thanks
-- create-react-app
-- shopify, theme kit and slate?
-- what else?
+We would like to specifically thank the following projects, for the inspiration and help in regards to the creation of Shopify Pipeline:
+- [create-react-app](https://github.com/facebookincubator/create-react-app)
+- [Shopify](https://github.com/Shopify), [Themekit](https://github.com/Shopify/node-themekit) and [Slate](https://shopify.github.io/slate/)
 
 ## Made by Dynamo
 This tool was created with love by [Dynamo](http://godynamo.com/), a Montreal-based full-service digital design studio. 

@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "DynamoMTL",
   "bugs": {
     "url": "https://github.com/DynamoMTL/shopify-pipeline/issues"
   },
