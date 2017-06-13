@@ -206,7 +206,7 @@ The `test` command is just a proxy for launching `jest` and as such we recommend
 There are [various compelling reasons](https://www.smashingmagazine.com/2016/01/issue-with-global-node-npm-packages/) why we should not rely on global npm packages. And as such, we advise you to not do so when using Shopify Pipeline.
 
 To have access to Shopify Pipeline's CLI commands, you then have two options:
-- In the terminal, append the path to your local package to the command like so: `./node_modules/bin/shopify-pipeline command`
+- In the terminal, append the path to your local package to the command like so: `./node_modules/.bin/shopify-pipeline command`
 - In the `package.json` file, you can create yarn/npm scripts to proxy the commands, like this:
     ```
     scripts: {
