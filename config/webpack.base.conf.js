@@ -4,6 +4,8 @@ const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
 const SvgStore = require('webpack-svgstore-plugin')
 const paths = require('../config/paths')
 
+const isDevServer = process.argv.find(v => v.includes('serve'))
+
 module.exports = {
   context: paths.src,
 
@@ -71,12 +73,11 @@ module.exports = {
           name: '../[path][name].[ext]'
         }
       },
-      // must be the first *.liquid loader.
       {
         test: /\.liquid$/,
         exclude: /node_modules/,
         include: /templates/,
-        loader: 'extract-loader!liquid-loader'
+        loader: `extract-loader!liquid-loader?dev-server=${isDevServer ? 'true' : 'false'}`
       }
     ]
   },
