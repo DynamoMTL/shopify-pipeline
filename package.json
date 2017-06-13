@@ -8,10 +8,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "DynamoMTL",
-  "contributors": [
-    "Nicolas DD (https://github.com/nddery)",
-    "Simon Walsh (https://github.com/simonwalsh)"
-  ],
   "bugs": {
     "url": "https://github.com/DynamoMTL/shopify-pipeline/issues"
   },
