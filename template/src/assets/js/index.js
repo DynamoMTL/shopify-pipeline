@@ -1,10 +1,11 @@
 // Import main stylesheet
-import '../sass/index.scss';
+import '../sass/index.scss'
 
 // Utilities
-import Foo from './utilities/foo';
+import Foo from './utilities/foo'
 
-/* eslint-disable */
-console.log(Foo.bar("Boom!"));
+// eslint-disable-next-line
+console.log(Foo.bar('Boom!'))
 
-var __svg__ = { path: '../svg/**/*.svg', name: '[hash].logos.svg' };
+// eslint-disable-next-line
+const __svg__ = { path: '../svg/**/*.svg', name: 'svgstore.[hash].svg' }
