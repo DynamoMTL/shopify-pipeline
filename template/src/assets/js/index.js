@@ -8,4 +8,4 @@ import Foo from './utilities/foo'
 console.log(Foo.bar('Boom!'))
 
 // eslint-disable-next-line
-const __svg__ = { path: '../svg/**/*.svg', name: 'svgstore.[hash].svg' }
+const __svg__ = { path: '../svg/**/*.svg', name: 'logos.svg' }

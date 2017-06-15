@@ -176,11 +176,15 @@ Here are the steps necessary to use it:
 2. Somewhere in your JS application, you need to create this variable and assignment:
     ```
     var __svg__ = { path: '../svg/**/*.svg', name: 'logos.svg' };
-    ```
-    
+    ```    
     This will tell the SVG Store plugin [that it needs to generate the sprite file](https://github.com/mrsum/webpack-svgstore-plugin#2-put-function-mark-at-your-chunk).
     
-Note that the plugin will add a `icon-` prefix to your file name as the `id` of the symbol in the sprite. There is no way to change this at the moment. Given that this is less than an ideal integration, we will look for better ways to generate the store [in the future](#roadmap).
+**Note** that the plugin will add a `icon-` prefix to your file name as the `id` of the symbol in the sprite. There is no way to change this at the moment. Given that this is less than an ideal integration, we will look for better ways to generate the store [in the future](#roadmap).
+
+Also **note** that, if you want to reference the sprite file in your liquid templates, [you will need to make sure that the url is not parsed by Webpack](#how-to-prevent-webpack-from-parsing-some-liquid-methods-and-filters). You can do so by wrapping the liquid curly brackets in a single quote and the name of the sprite in double quotes, like so:
+```
+<div data-some-attribute='{{ "logos.svg" | asset_url }}'></div>
+```
 
 #### [7] Shopify Required
 
@@ -254,6 +258,11 @@ To do so, you must:
 
 ### You should not rely on liquid helpers in your JS and CSS files
 (More to come)
+
+### How to prevent Webpack from parsing some liquid methods and filters
+Webpack will loop through your liquid files and parse the liquid helpers to compile the relevant assets. For example, if it detects a `<img src="{{ 'lamp.png' | assert_url }}>"` in a file, it will grab that `lamp.png` image and pass it through the build process.
+
+If, for some reason, one file should not be picked up by Webpack, you can escape this process by wrapping the liquid curly brackets in single quotes, like so `<img src='{{ "lamp.png" | assert_url }}>'`. 
 
 ### How to make HMR-compliant code
 To be able to use some sweet sweet HMR in your flow, you either need to use a framework that supports it (e.g. React, Vue, etc.) or modify your JS modules to be HMR-compatible. More info on how to do that [here](http://andrewhfarmer.com/webpack-hmr-tutorial/#part-2-code-changes).
