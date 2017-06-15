@@ -9,7 +9,7 @@ const webpack = require('webpack')
 const webpackConfig = require('../config/webpack.prod.conf')
 const config = require('../config')
 const shopify = require('../lib/shopify-deploy')
-const env = require('../lib/getShopifyEnvOrDie.js')(argv.env, config.shopify)
+const env = require('../lib/get-shopify-env-or-die')(argv.env, config.shopify)
 
 webpack(webpackConfig, (err, stats) => {
   if (err) throw err

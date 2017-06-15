@@ -20,7 +20,7 @@ const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages')
 const config = require('../config')
 const webpackConfig = require('../config/webpack.dev.conf')
 const shopify = require('../lib/shopify-deploy')
-const env = require('../lib/getShopifyEnvOrDie.js')(argv.env, config.shopify)
+const env = require('../lib/get-shopify-env-or-die')(argv.env, config.shopify)
 
 const fakeCert = fs.readFileSync(path.join(__dirname, '../ssl/server.pem'))
 const sslOptions = {
