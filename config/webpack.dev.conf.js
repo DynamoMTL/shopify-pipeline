@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = require('./index')
 const webpackConfig = require('./webpack.base.conf')
-const userWebpackConfig = require('../lib/getUserWebpackConfig')('dev')
+const userWebpackConfig = require('../lib/get-user-webpack-config')('dev')
 
 // so that everything is absolute
 webpackConfig.output.publicPath = `${config.domain}:${config.port}/`
