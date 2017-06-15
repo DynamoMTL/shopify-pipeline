@@ -74,9 +74,13 @@ module.exports = {
         }
       },
       {
+        test: /layout\/theme\.liquid$/,
+        exclude: /node_modules/,
+        loader: 'raw-loader'
+      },
+      {
         test: /\.liquid$/,
         exclude: /node_modules/,
-        include: /templates/,
         loader: `extract-loader!liquid-loader?dev-server=${isDevServer ? 'true' : 'false'}`
       }
     ]
@@ -97,7 +101,6 @@ module.exports = {
     }),
 
     new WriteFileWebpackPlugin({
-      // test: config.regex.static,
       test: /^(?:(?!hot-update.json$).)*\.(liquid|json)$/,
       useHashIndex: true,
       log: false
