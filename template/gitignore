@@ -15,3 +15,5 @@ yarn-error.log*
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+config/shopify.yml
