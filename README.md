@@ -28,7 +28,7 @@ So excited you wanna get started right away? [Boom](#getting-started)
 
 **ES6+ Support**: Webpack and Babel are used to support the ES6+ standards in an effective way via [babel-preset-env](https://github.com/babel/babel-preset-env).
 
-**Asset Optimization and Fingerprinting**: Webpack is used to skim through all your templates and find the assets and dependencies needed for the build, running those through its process and spitting out optimized and fingerprinted assets in the build folder. It will also map those assets by rendering the correct path in the templates.
+**Asset Optimization and Fingerprinting**: Webpack is used to skim through all your templates and find the assets and dependencies needed for the build, running those through its process and spitting out optimized and fingerprinted assets in the build folder. It will also map those assets by rendering the correct path in the templates. **Note** that paths should be relative to the file your asset’s being referenced from.
 
 **SVG Store**: We are supporting the use of SVG Store out of the box using [webpack-svgstore-plugin](https://github.com/mrsum/webpack-svgstore-plugin). You can jump to this [section](#6-svg-store) to learn how to use it in Shopify Pipeline.
 
