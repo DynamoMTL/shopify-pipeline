@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = require('./index')
 const webpackConfig = require('./webpack.base.conf')
+const commonExcludes = require('../lib/common-excludes')
 const userWebpackConfig = require('../lib/get-user-webpack-config')('dev')
 
 // so that everything is absolute
@@ -24,6 +25,7 @@ module.exports = merge(webpackConfig, {
     rules: [
       {
         test: /\.s[ac]ss$/,
+        exclude: commonExcludes(),
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' },

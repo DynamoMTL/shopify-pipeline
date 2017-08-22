@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const webpackConfig = require('./webpack.base.conf')
+const commonExcludes = require('../lib/common-excludes')
 const userWebpackConfig = require('../lib/get-user-webpack-config')('prod')
 
 const config = require('../config')
@@ -20,6 +21,7 @@ module.exports = merge(webpackConfig, {
     rules: [
       {
         test: /\.s[ac]ss$/,
+        exclude: commonExcludes(),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
