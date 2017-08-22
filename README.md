@@ -209,9 +209,9 @@ The `test` command is just a proxy for launching `jest` and as such we recommend
 
 `src/assets/vendors`
 
-Sometimes you need the ability to upload un-modified files to the Shopify server. This is where the `vendors` directory comes in. Any files placed inside this directory will be uploaded, as-is, to Shopify. To reference them in your `.liquid` files, you'll want to [ensure Webpack doesn't parse your liquid filters](how-to-prevent-webpack-from-parsing-some-liquid-methods-and-filters) when referencing those files.
+Sometimes you need the ability to upload unmodified files to the Shopify server. This is where the `vendors` directory comes in. Any files placed inside this directory will be uploaded, as-is, to Shopify. To reference them in your `.liquid` files, you'll want to [ensure Webpack doesn't parse your liquid filters](how-to-prevent-webpack-from-parsing-some-liquid-methods-and-filters) when referencing those files.
 
-This special directory can be usefull for files added by plugins you've installed, or for when you need to construct an image URL in Liquid.
+This special directory can be useful for files added by plugins you've installed, or for when you need to construct an image URL in Liquid.
 
 ## Using the Tool
 
