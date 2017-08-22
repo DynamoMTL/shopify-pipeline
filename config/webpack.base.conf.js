@@ -6,6 +6,9 @@ const paths = require('../config/paths')
 
 const isDevServer = process.argv.find(v => v.includes('serve'))
 
+// Given a request path, return a function that accepts a context and modify it's request.
+const replaceCtxRequest = request => context => Object.assign(context, { request })
+
 module.exports = {
   context: paths.src,
 
@@ -87,12 +90,9 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.ContextReplacementPlugin(
-      /allstaticfiles/,
-      config.paths.src,
-      true,
-      /^(?:(?!theme\.liquid$).)*\.(liquid|json)$/
-    ),
+    // https://webpack.js.org/plugins/context-replacement-plugin/#newcontentcallback
+    new webpack.ContextReplacementPlugin(/__appsrc__/, replaceCtxRequest(paths.src)),
+    new webpack.ContextReplacementPlugin(/__appvendors__/, replaceCtxRequest(paths.vendors)),
 
     new WriteFileWebpackPlugin({
       test: config.regex.images,
