@@ -86,6 +86,7 @@ Once Shopify Pipeline has created the scaffolding of your project, it will have 
     │   ├── js [4]
     │   └── sass [5]
     │   └── svg [6]
+    │   └── vendors [9]
     ├── config [7]
     │   ├── settings_data.json
     │   └── settings_schema.json
@@ -204,6 +205,14 @@ You can nest and organize your specs in subfolders as long as the filenames foll
 
 The `test` command is just a proxy for launching `jest` and as such we recommend you read [their documentation](https://facebook.github.io/jest/docs/getting-started.html) to learn more about the framework and how to use it.
 
+#### [9] Vendors
+
+`src/assets/vendors`
+
+Sometimes you need the ability to upload unmodified files to the Shopify server. This is where the `vendors` directory comes in. Any files placed inside this directory will be uploaded, as-is, to Shopify. To reference them in your `.liquid` files, you'll want to [ensure Webpack doesn't parse your liquid filters](how-to-prevent-webpack-from-parsing-some-liquid-methods-and-filters) when referencing those files.
+
+This special directory can be useful for files added by plugins you've installed, or for when you need to construct an image URL in Liquid.
+
 ## Using the Tool
 
 ### Not Global
@@ -262,7 +271,7 @@ To do so, you must:
 ### How to prevent Webpack from parsing some liquid methods and filters
 Webpack will loop through your liquid files and parse the liquid helpers to compile the relevant assets. For example, if it detects a `<img src="{{ 'lamp.png' | assert_url }}>"` in a file, it will grab that `lamp.png` image and pass it through the build process.
 
-If, for some reason, one file should not be picked up by Webpack, you can escape this process by wrapping the liquid curly brackets in single quotes, like so `<img src='{{ "lamp.png" | assert_url }}>'`. 
+If, for some reason, one file should not be picked up by Webpack, you can escape this process by wrapping the liquid curly brackets in single quotes, like so `<img src='{{ "lamp.png" | assert_url }}>'`. When using this escape hatch, you should not include a relative link to your asset but instead simply write it's name.
 
 ### How to make HMR-compliant code
 To be able to use some sweet sweet HMR in your flow, you either need to use a framework that supports it (e.g. React, Vue, etc.) or modify your JS modules to be HMR-compatible. More info on how to do that [here](http://andrewhfarmer.com/webpack-hmr-tutorial/#part-2-code-changes).

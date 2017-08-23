@@ -3,8 +3,12 @@ const config = require('../config')
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
 const SvgStore = require('webpack-svgstore-plugin')
 const paths = require('../config/paths')
+const commonExcludes = require('../lib/common-excludes')
 
 const isDevServer = process.argv.find(v => v.includes('serve'))
+
+// Given a request path, return a function that accepts a context and modify it's request.
+const replaceCtxRequest = request => context => Object.assign(context, { request })
 
 module.exports = {
   context: paths.src,
@@ -17,7 +21,7 @@ module.exports = {
   },
 
   resolveLoader: {
-    modules: ['node_modules', config.paths.lib]
+    modules: [config.paths.lib, 'node_modules']
   },
 
   module: {
@@ -25,7 +29,7 @@ module.exports = {
       {
         enforce: 'pre',
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: commonExcludes(),
         loader: 'eslint-loader',
         options: {
           configFile: config.paths.eslintrc
@@ -33,7 +37,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: commonExcludes(),
         loader: 'babel-loader',
         options: {
           presets: [
@@ -48,7 +52,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: commonExcludes(),
         loader: 'hmr-alamo-loader'
       },
       {
@@ -58,7 +62,7 @@ module.exports = {
       },
       {
         test: config.regex.images,
-        exclude: /node_modules/,
+        exclude: commonExcludes(),
         use: [
           { loader: 'file-loader', options: { name: '[name].[hash].[ext]' } },
           { loader: 'img-loader' }
@@ -67,35 +71,40 @@ module.exports = {
       {
         test: config.regex.static,
         // excluding layout/theme.liquid as it's also being emitted by the HtmlWebpackPlugin
-        exclude: /(node_modules|layout\/theme\.liquid)/,
+        exclude: commonExcludes('layout/theme.liquid'),
         loader: 'file-loader',
         options: {
           name: '../[path][name].[ext]'
         }
       },
       {
-        test: /layout\/theme\.liquid$/,
+        test: /assets\/vendors\//,
         exclude: /node_modules/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]'
+        }
+      },
+      {
+        test: /layout\/theme\.liquid$/,
+        exclude: commonExcludes(),
         loader: 'raw-loader'
       },
       {
         test: /\.liquid$/,
-        exclude: /node_modules/,
+        exclude: commonExcludes(),
         loader: `extract-loader!liquid-loader?dev-server=${isDevServer ? 'true' : 'false'}`
       }
     ]
   },
 
   plugins: [
-    new webpack.ContextReplacementPlugin(
-      /allstaticfiles/,
-      config.paths.src,
-      true,
-      /^(?:(?!theme\.liquid$).)*\.(liquid|json)$/
-    ),
+    // https://webpack.js.org/plugins/context-replacement-plugin/#newcontentcallback
+    new webpack.ContextReplacementPlugin(/__appsrc__/, replaceCtxRequest(paths.src)),
+    new webpack.ContextReplacementPlugin(/__appvendors__/, replaceCtxRequest(paths.vendors)),
 
     new WriteFileWebpackPlugin({
-      test: config.regex.images,
+      test: /\.(png|svg|jpf|gif|scss)/,
       useHashIndex: true,
       log: false
     }),

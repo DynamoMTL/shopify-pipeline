@@ -41,6 +41,7 @@ module.exports = {
   root: appDirectory,
   dist: resolveApp('dist'),
   src: resolveApp('src'),
+  vendors: resolveApp('src/assets/vendors'),
   lib: resolveSelf('lib'),
   entrypoints: {
     scripts: resolveApp('src/assets/js/index.js'),
