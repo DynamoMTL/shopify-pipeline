@@ -1,3 +1,4 @@
+const fs = require('fs')
 const webpack = require('webpack')
 const config = require('../config')
 const WriteFileWebpackPlugin = require('write-file-webpack-plugin')
@@ -7,8 +8,29 @@ const commonExcludes = require('../lib/common-excludes')
 
 const isDevServer = process.argv.find(v => v.includes('serve'))
 
-// Given a request path, return a function that accepts a context and modify it's request.
-const replaceCtxRequest = request => context => Object.assign(context, { request })
+/**
+ * Return an array of ContextReplacementPlugin to use.
+ * Omit the __appvendors__ replacement if the directory does not exists.
+ *
+ * @see https://webpack.js.org/plugins/context-replacement-plugin/#newcontentcallback
+ */
+const contextReplacementPlugins = () => {
+  // Given a request path, return a function that accepts a context and modify it's request.
+  const replaceCtxRequest = request => context => Object.assign(context, { request })
+
+  const plugins = [
+    new webpack.ContextReplacementPlugin(/__appsrc__/, replaceCtxRequest(paths.src))
+  ]
+
+  if (fs.existsSync(paths.vendors)) {
+    return [
+      ...plugins,
+      new webpack.ContextReplacementPlugin(/__appvendors__/, replaceCtxRequest(paths.vendors))
+    ]
+  }
+
+  return plugins
+}
 
 module.exports = {
   context: paths.src,
@@ -99,9 +121,7 @@ module.exports = {
   },
 
   plugins: [
-    // https://webpack.js.org/plugins/context-replacement-plugin/#newcontentcallback
-    new webpack.ContextReplacementPlugin(/__appsrc__/, replaceCtxRequest(paths.src)),
-    new webpack.ContextReplacementPlugin(/__appvendors__/, replaceCtxRequest(paths.vendors)),
+    ...contextReplacementPlugins(),
 
     new WriteFileWebpackPlugin({
       test: /\.(png|svg|jpf|gif|scss)/,
