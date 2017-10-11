@@ -124,7 +124,7 @@ module.exports = {
     ...contextReplacementPlugins(),
 
     new WriteFileWebpackPlugin({
-      test: /\.(png|svg|jpf|gif|scss)/,
+      test: /\.(png|svg|jpg|gif|scss)/,
       useHashIndex: true,
       log: false
     }),
