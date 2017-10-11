@@ -1,6 +1,6 @@
 {
   "name": "shopify-pipeline",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A modern pipeline for Shopify theme development",
   "repository": "DynamoMTL/shopify-pipeline",
   "license": "MIT",
