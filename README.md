@@ -271,7 +271,7 @@ To do so, you must:
 ### How to prevent Webpack from parsing some liquid methods and filters
 Webpack will loop through your liquid files and parse the liquid helpers to compile the relevant assets. For example, if it detects a `<img src="{{ 'lamp.png' | assert_url }}>"` in a file, it will grab that `lamp.png` image and pass it through the build process.
 
-If, for some reason, one file should not be picked up by Webpack, you can escape this process by wrapping the liquid curly brackets in single quotes, like so `<img src='{{ "lamp.png" | assert_url }}>'`. When using this escape hatch, you should not include a relative link to your asset but instead simply write it's name.
+If, for some reason, one file should not be picked up by Webpack, you can escape this process by using double quotes inside of the liquid expression, like so `<img src='{{ "lamp.png" | assert_url }}>'`. When using this escape hatch, you should not include a relative link to your asset but instead simply write it's name.
 
 ### How to make HMR-compliant code
 To be able to use some sweet sweet HMR in your flow, you either need to use a framework that supports it (e.g. React, Vue, etc.) or modify your JS modules to be HMR-compatible. More info on how to do that [here](http://andrewhfarmer.com/webpack-hmr-tutorial/#part-2-code-changes).
