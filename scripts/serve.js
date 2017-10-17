@@ -10,6 +10,7 @@ const express = require('express')
 const fs = require('fs')
 const path = require('path')
 const https = require('https')
+const http = require('http')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
@@ -29,7 +30,7 @@ const sslOptions = {
 }
 
 const app = express()
-const server = https.createServer(sslOptions, app)
+const server = config.serveHttps ? https.createServer(sslOptions, app) : http.createServer(app)
 const compiler = webpack(webpackConfig)
 
 const shopifyUrl = `https://${config.shopify[env].store}`
@@ -118,6 +119,8 @@ compiler.plugin('done', (stats) => {
     console.log(chalk.green('Compiled successfully!'))
     console.log('\nThe app is running at:\n')
     console.log(`  ${chalk.cyan(previewUrl)}`)
+    console.log('\nHMR is running at:\n')
+    console.log(`  ${chalk.cyan(config.devDomain)}`)
   }
 
   // files we'll upload

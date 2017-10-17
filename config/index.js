@@ -7,6 +7,7 @@ let config = {
   paths,
   domain: 'https://localhost',
   port: 8080,
+  serveHttps: true,
   regex: {
     images: /\.(png|svg|jpg|gif)$/,
     static: /\.(liquid|json)$/
