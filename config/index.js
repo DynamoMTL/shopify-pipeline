@@ -15,6 +15,7 @@ let config = {
 
 if(fs.existsSync(paths.userServerConfig)) {
   config = merge(true, config, YAML.load(paths.userServerConfig))
+  config.devDomain = config.devDomain || `${config.domain}:${config.port}`
 }
 
 config.shopify = YAML.load(paths.userShopifyConfig)
