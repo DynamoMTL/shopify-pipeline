@@ -196,7 +196,10 @@ $('[data-svg-loader]').each(function _loadSvg() {
     this.innerHTML = svgSerialized
   })
 })
-````
+```
+
+**Updating SVGs:** To get the svg store to regenerate, you must touch `index.js` -- editing, adding/removing svgs will not trigger a recompile.
+
 #### [7] Shopify Required
 
 `src/config`, `src/layout/theme.liquid`, `src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
