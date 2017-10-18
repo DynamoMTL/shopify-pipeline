@@ -42,7 +42,7 @@ So excited you wanna get started right away? [Boom](#getting-started)
 
 **JS Unit Testing**: We added a default unit testing setup, using Jest, so that you don't have to. You can jump to [the testing section](#8-specs) to learn more about this.
 
-**Pipeline Customization and Augmentation**: We are providing you with base Webpack configs for the development and production environments, but you can extend them to add your own specific solutions to the pipeline. More on this here [link]. 
+**Pipeline Customization and Augmentation**: We are providing you with base Webpack configs for the development and production environments, but you can extend them to add your own specific solutions to the pipeline. More on this here [link].
 
 **Multiple Environment Support**: Shopify Pipeline uses a YAML file similar to [Theme Kit's `config.yml`](https://shopify.github.io/themekit/configuration/) file to allow you to have different credentials for your development and production environments.
 
@@ -110,7 +110,7 @@ Once Shopify Pipeline has created the scaffolding of your project, it will have 
 #### [0] Packages
 
 `package.json`
-  
+
 The package file will be generated for you by Shopify Pipeline upon project creation.
 
 We are so nice that we will also generate npm/yarn scripts for you to be able to use Shopify Pipeline's CLI easily from the terminal (e.g. `yarn serve`).
@@ -118,19 +118,19 @@ We are so nice that we will also generate npm/yarn scripts for you to be able to
 #### [1] ESlint Config
 
 `.eslintrc` (optional)
-  
+
 If you add a ESlint config file on the root of your app, Shopify Pipeline will use that file for the eslint-loader.
 
 #### [2] Shopify Config
 
 `config/shopify.yml`
-  
+
 Shopify Pipeline will use this config file to setup the development and production flow. It is mimicking what is already being used by [Theme Kit](https://shopify.github.io/themekit/configuration/) and will work accordingly.
 
 #### [3] Webpack Config
 
 `config/webpack.[dev|prod].conf.js`
-  
+
 If Shopify Pipeline finds one or both of those files in the `config` folder, it will merge them with the default Webpack config files everytime you start the webpack-dev-server or that you build your project. This allows you to add loaders and plugins to augment the base toolset provided to you by Shopify Pipeline.
 
 We are using [webpack-merge](https://www.npmjs.com/package/webpack-merge) to elegantly achieve this goal.
@@ -140,7 +140,7 @@ Of course, with great power comes great responsibility: please use this feature 
 #### [4] JS Files
 
 `src/assets/js`
-  
+
 This folder will contain all your JS modules. An `index.js` must be present, as it will act as the entry point for your JS application.
 
 You can use ES6/ES2015's standard, which incidently allows you to require your modules with the `import` syntax:
@@ -153,7 +153,7 @@ import Foo from './modules/foo'
 #### [5] Sass and CSS Files
 
 `src/assets/sass`
-  
+
 Shopify Pipeline fully supports `.css`, `.scss` and `.sass` files and their syntax, including `@import`.
 
 You **must** include your style index file at the top of your `index.js` file for Webpack to be able to load your styles into its build process, as such:
@@ -169,24 +169,34 @@ If you intend to use [Stylelint support](#roadmap) (coming soon!), also note tha
 #### [6] SVG Store
 
 `src/assets/svg`
-  
+
 If you want to use the [SVG Store technique](https://css-tricks.com/svg-sprites-use-better-icon-fonts/), we added its support out of the box with the help of [webpack-svgstore-plugin](https://github.com/mrsum/webpack-svgstore-plugin).
 
-Here are the steps necessary to use it: 
+Here are the steps necessary to use it:
 1. Place all the necessary Svg files inside the `svg` folder
 2. Somewhere in your JS application, you need to create this variable and assignment:
     ```
     var __svg__ = { path: '../svg/**/*.svg', name: 'logos.svg' };
-    ```    
+    ```
     This will tell the SVG Store plugin [that it needs to generate the sprite file](https://github.com/mrsum/webpack-svgstore-plugin#2-put-function-mark-at-your-chunk).
-    
+
 **Note** that the plugin will add a `icon-` prefix to your file name as the `id` of the symbol in the sprite. There is no way to change this at the moment. Given that this is less than an ideal integration, we will look for better ways to generate the store [in the future](#roadmap).
 
 Also **note** that, if you want to reference the sprite file in your liquid templates, [you will need to make sure that the url is not parsed by Webpack](#how-to-prevent-webpack-from-parsing-some-liquid-methods-and-filters). You can do so by wrapping the liquid curly brackets in a single quote and the name of the sprite in double quotes, like so:
 ```
-<div data-some-attribute='{{ "logos.svg" | asset_url }}'></div>
+<div data-svgloader='{{ "logos.svg" | asset_url }}'></div>
 ```
 
+The sprite loader that comes with [webpack-svgstore-plugin]((https://github.com/mrsum/webpack-svgstore-plugin) won't work out of the box, instead given that you have included the above liquid snippet in your theme, this loader will suffice:
+```
+$('[data-svg-loader]').each(function _loadSvg() {
+  const $this = $(this)
+  $.get($this.data('src'), (svg) => {
+    const svgSerialized = new window.XMLSerializer().serializeToString(svg.documentElement)
+    this.innerHTML = svgSerialized
+  })
+})
+````
 #### [7] Shopify Required
 
 `src/config`, `src/layout/theme.liquid`, `src/locales`, `src/sections`, `src/snippets`, `src/templates/*.liquid`
@@ -226,7 +236,7 @@ To have access to Shopify Pipeline's CLI commands, you then have two options:
       xxx: 'shopify-pipeline command',
       ...
     }
-    
+
     // In the terminal:
     // yarn xxx --someflag
     ```
@@ -293,7 +303,7 @@ We would like to specifically thank the following projects, for the inspiration 
 - [Shopify](https://github.com/Shopify), [Themekit](https://github.com/Shopify/node-themekit) and [Slate](https://shopify.github.io/slate/)
 
 ## Made by Dynamo
-This tool was created with love by [Dynamo](http://godynamo.com/), a Montreal-based full-service digital design studio. 
+This tool was created with love by [Dynamo](http://godynamo.com/), a Montreal-based full-service digital design studio.
 
 The goal behind Shopify Pipeline is to alleviate some of the downsides of working within the Shopify ecosystem and bring forward some of the nice features you get when building custom e-commerce websites outside of it.
 
