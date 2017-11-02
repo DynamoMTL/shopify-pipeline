@@ -2,7 +2,7 @@
 
 ---
 
-**Disclaimers:** 
+**Important disclaimers:** 
 
 This project is still in beta.
 
