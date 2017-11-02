@@ -6,7 +6,7 @@
 
 This project is still in beta.
 
-We are also looking for maintainers and contributors as Dynamo as a group **will not be continuing active maintainance and features development** for [Shopify Pipeline](https://github.com/DynamoMTL/shopify-pipeline) (and it's scaffolder [create-shopify-pipeline](https://github.com/DynamoMTL/create-shopify-pipeline)).
+We are also looking for maintainers and contributors as Dynamo as a group **will not be continuing active maintainance and features development** for [Shopify Pipeline](https://github.com/DynamoMTL/shopify-pipeline) (and it's scaffolder [create-shopify-pipeline](https://github.com/DynamoMTL/create-shopify-pipeline)). -- See [#108](https://github.com/DynamoMTL/shopify-pipeline/issues/108).
 
 ---
 
