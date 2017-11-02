@@ -1,6 +1,14 @@
 # Shopify Pipeline - A modern pipeline for Shopify theme development
 
-(**Disclaimer:** This project is still in beta.)
+---
+
+**Disclaimers:** 
+
+This project is still in beta.
+
+We are also looking for maintainers and contributors as Dynamo as a group **will not be continuing active maintainance and features development** for [Shopify Pipeline](https://github.com/DynamoMTL/shopify-pipeline) (and it's scaffolder [create-shopify-pipeline](https://github.com/DynamoMTL/create-shopify-pipeline)).
+
+---
 
 Shopify Pipeline aims at giving you access to a better, smoother and more modern workflow for building, testing and deploying Shopify themes and websites.
 
