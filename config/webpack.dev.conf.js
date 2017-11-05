@@ -9,7 +9,7 @@ const commonExcludes = require('../lib/common-excludes')
 const userWebpackConfig = require('../lib/get-user-webpack-config')('dev')
 
 // so that everything is absolute
-webpackConfig.output.publicPath = `${config.domain}:${config.port}/`
+webpackConfig.output.publicPath = `${config.devDomain}/`
 
 // add hot-reload related code to entry chunks
 Object.keys(webpackConfig.entry).forEach((name) => {

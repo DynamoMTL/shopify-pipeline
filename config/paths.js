@@ -49,5 +49,6 @@ module.exports = {
   },
   assetsOutput: resolveApp('dist/assets'),
   userShopifyConfig: resolveApp('config/shopify.yml'),
+  userServerConfig: resolveApp('config/server.yml'),
   eslintrc: getEslintrc()
 }
